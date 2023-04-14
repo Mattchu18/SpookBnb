@@ -20,12 +20,11 @@ module.exports = router;
 
 /* BELOW IS TEST ENDPOINTS
 
-router.get(
-  '/restore-user',
-  (req, res) => {
+router.get('/restore-user', (req, res) => {
     return res.json(req.user);
   }
 );
+
 // backend/routes/api/index.js
 router.post('/test', function (req, res) {
   res.json({ requestBody: req.body });
@@ -46,10 +45,7 @@ router.get('/set-token-cookie', async (_req, res) => {
 
 // GET /api/require-auth
 const { requireAuth } = require('../../utils/auth.js');
-router.get(
-  '/require-auth',
-  requireAuth,
-  (req, res) => {
+router.get('/require-auth', requireAuth, (req, res) => {
     return res.json(req.user);
   }
 );
