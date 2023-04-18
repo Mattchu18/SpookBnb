@@ -20,7 +20,7 @@ module.exports = {
         lng: '1.2345',
         name: 'Beautiful spot near Test City!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
-        price: '$500'
+        price: '500'
       },
       {
         ownerId: '2',
@@ -32,7 +32,7 @@ module.exports = {
         lng: '1.2345',
         name: 'Beautiful spot near Test City!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
-        price: '$500'
+        price: '500'
       },
     ], {});
   },
