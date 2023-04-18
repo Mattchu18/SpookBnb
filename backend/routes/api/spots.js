@@ -115,7 +115,7 @@ router.post('/', newPostChecker, async (req, res, next) => {
     res.status(201).json(newSpot)
 })
 
-// Add an image to a Spot base on the Spot's id
+// Add an image to a Spot based on the Spot's id
 router.post('/:spotId/images', async (req, res, next) => {
     const { url, preview } = req.body;
     const { spotId } = req.params;
