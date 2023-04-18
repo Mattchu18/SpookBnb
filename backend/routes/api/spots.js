@@ -115,6 +115,33 @@ router.post('/', newPostChecker, async (req, res, next) => {
     res.status(201).json(newSpot)
 })
 
+// Add an image to a Spot base on the Spot's id
+router.post('/:spotId/images', async (req, res, next) => {
+    const { url, preview } = req.body;
+    const { spotId } = req.params;
+    const spotImage = await SpotImage.findByPk(spotId)
+
+    if(!spotImage){
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+
+    const newImage = await SpotImage.create({
+        spotId: spotImage.id,
+        url,
+        preview
+    })
+
+    res.status(200).json({
+        spotId: spotImage.id,
+        url: newImage.url,
+        preview: newImage.preview
+    })
+
+});
+
+
 router.delete('/', async (req, res, next) => {
 
 
