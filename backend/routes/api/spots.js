@@ -48,56 +48,56 @@ router.get('/:spotId', async (req, res, next) => {
             }
         ]
     })
-    if(!spots){
+    if (!spots) {
         res.status(404).json({
-                "message": "Spot couldn't be found"
-              })
+            "message": "Spot couldn't be found"
+        })
     }
     res.status(200).json(spots)
 })
 
 // Create a Spot
 // unfinished
-const newPostChecker = [
+const spotChecker = [
     check('address')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Street address is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Street address is required"),
     check('city')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("City is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("City is required"),
     check('state')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("State is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("State is required"),
     check('country')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Country is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Country is required"),
     check('lat')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Latitude is not valid"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Latitude is not valid"),
     check('lng')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Longitude is not valid"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Longitude is not valid"),
     check('name')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Name must be less than 50 characters"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Name must be less than 50 characters"),
     check('description')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Description is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Description is required"),
     check('price')
-    .exists({ checkFalsy: true })
-    .notEmpty()
-    .withMessage("Price per day is required"),
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Price per day is required"),
     handleValidationErrors
 ];
-router.post('/', newPostChecker, async (req, res, next) => {
+router.post('/', spotChecker, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const newSpot = await Spot.create({
         //ownerId: //current authentication
@@ -121,7 +121,7 @@ router.post('/:spotId/images', async (req, res, next) => {
     const { spotId } = req.params;
     const spotImage = await SpotImage.findByPk(spotId)
 
-    if(!spotImage){
+    if (!spotImage) {
         return res.status(404).json({
             "message": "Spot couldn't be found"
         })
@@ -140,6 +140,34 @@ router.post('/:spotId/images', async (req, res, next) => {
     })
 
 });
+
+// Edit a Spot
+router.put('/:spotId', spotChecker, async (req, res, next) => {
+    const { spotId } = req.params;
+    const updatedSpot = await Spot.findByPk(spotId);
+    // console.log('updatedSpot', updatedSpot)
+
+    if(!updatedSpot){
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    } else {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body;
+        updatedSpot.address = address;
+        updatedSpot.city = city;
+        updatedSpot.state = state;
+        updatedSpot.country = country;
+        updatedSpot.lat = lat;
+        updatedSpot.lng = lng;
+        updatedSpot.name = name;
+        updatedSpot.description = description;
+        updatedSpot.price = price;
+    }
+
+    await updatedSpot.save();
+    res.status(200).json(updatedSpot)
+
+})
 
 
 router.delete('/', async (req, res, next) => {
