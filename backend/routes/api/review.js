@@ -11,6 +11,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 
+// Get all Reviews of the Current User
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const reviews = await Review.findAll({
@@ -48,7 +49,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         "Reviews": reviews
     })
 })
-
 
 
 module.exports = router;
