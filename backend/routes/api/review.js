@@ -21,9 +21,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         }
     })
 
-    // res.json(reviewImg)
-    // res.json(reviewImg[0].url)
-
     const reviews = await Review.findAll({
         where: {
             userId: id
@@ -57,6 +54,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             }
         ]
     });
+
     let arr = [];
     reviews.forEach(review => {
         arr.push(review.toJSON())
