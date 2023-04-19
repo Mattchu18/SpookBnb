@@ -12,6 +12,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 
 // Get all Reviews of the Current User
+// need previewImage
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const reviews = await Review.findAll({
@@ -111,7 +112,6 @@ const reviewChecker = [
 ];
 
 // Edit a Review
-// Update and return and existing review.
 router.put('/:reviewId', requireAuth, reviewChecker, async (req, res, next) => {
     const { reviewId } = req.params;
     const userId = req.user.id;
@@ -140,6 +140,36 @@ router.put('/:reviewId', requireAuth, reviewChecker, async (req, res, next) => {
 
     await updatedReview.save();
     res.status(200).json(updatedReview);
+})
+
+// Delete a Review
+router.delete('/:reviewId', requireAuth, async (req, res, next) => {
+    const { reviewId } = req.params;
+    const userId = req.user.id;
+    const belongs = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId
+        }
+    });
+    const deleteReview = await Review.findByPk(reviewId);
+
+    if(!deleteReview) {
+        res.status(404).json({
+            "message": "Review couldn't be found"
+          })
+    };
+    if(!belongs) {
+        res.status(403).json({
+            "message": "Review must belong to the current user"
+        })
+    };
+
+    deleteReview.destroy();
+
+    return res.status(200).json({
+        "message": "Successfully deleted"
+      })
 })
 
 module.exports = router;
