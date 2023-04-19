@@ -266,15 +266,15 @@ router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, nex
           })
     }
 
-    const spotReview = await Review.findOne({
+    const reviewed = await Review.findOne({
         where: {
             spotId: id,
             userId
         }
     })
 
-    // console.log(spotReview, userId)
-    if(spotReview){
+    // console.log(reviewed, userId)
+    if(reviewed){
         return res.status(500).json({
                 "message": "User already has a review for this spot"
         })
