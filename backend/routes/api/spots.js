@@ -15,17 +15,35 @@ const { requireAuth } = require('../../utils/auth');
 // Get all Spots
 // unfinished: need avgRating, previewImage
 router.get('/', async (req, res, next) => {
-    const reviewCount = await Review.findAll()
-    // console.log(reviewCount)
-    // res.json(reviewCount)
-
+    // console.log(reviews)
     const spots = await Spot.findAll({
         include: [
             {
                 model: SpotImage,
+                model: Review
             },
         ]
     });
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: spots.id
+        }
+    })
+
+    let arr = [];
+    spots.forEach(spot => {
+        arr.push(spot.toJSON())
+    })
+
+    arr.forEach(spot => {
+        // spot.Reviews.forEach(review => {
+        //     spot.Reviews.Count()
+
+        // })
+
+
+    })
 
     res.status(200).json(spots)
 })
@@ -243,16 +261,16 @@ router.get('/:spotId/reviews', async (req, res, next) => {
 })
 
 const reviewChecker = [
-        check('review')
+    check('review')
         .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage("Review text is required"),
-        check('stars')
+    check('stars')
         .exists({ checkFalsy: true })
         .notEmpty()
         .withMessage("Stars must be an integer from 1 to 5"),
-        handleValidationErrors
-    ]
+    handleValidationErrors
+]
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, next) => {
     const id = req.params.spotId;
@@ -260,10 +278,10 @@ router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, nex
     const spot = await Spot.findByPk(id)
     const { review, stars } = req.body;
 
-    if(!spot) {
+    if (!spot) {
         return res.status(404).json({
             "message": "Spot couldn't be found"
-          })
+        })
     }
 
     const reviewed = await Review.findOne({
@@ -274,9 +292,9 @@ router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, nex
     })
 
     // console.log(reviewed, userId)
-    if(reviewed){
+    if (reviewed) {
         return res.status(500).json({
-                "message": "User already has a review for this spot"
+            "message": "User already has a review for this spot"
         })
     }
 
