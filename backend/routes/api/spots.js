@@ -16,16 +16,25 @@ const authenticate = [
 ]
 
 // Get all Spots
-// unfinished: need numReviews, avgStarRating
+// unfinished: need avgRating, previewImage
 router.get('/', async (req, res, next) => {
-    const spots = await Spot.findAll();
+    const spots = await Spot.findAll({
+        include: [
+            { model: SpotImage,
+            where: {
+                'preview': true
+            }
+        },
+
+        ]
+    });
 
     res.status(200).json(spots)
 })
 
 
 // Get all spots owned by Current User
-// Unfinished: need to authorize/authenticate
+// need "Spots" at beginning of response
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const spots = await Spot.findAll({
@@ -33,7 +42,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
             ownerId: id
         }
     })
-    // console.log(id)
     res.json(spots)
 });
 
@@ -193,6 +201,7 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
             "message": "Spot couldn't be found"
           })
     }
+
     await spotToDelete.destroy();
     res.status(200).json({
         "message": "Successfully deleted"
