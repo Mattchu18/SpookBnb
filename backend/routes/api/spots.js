@@ -152,7 +152,7 @@ router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
 
     if (req.user.id !== updatedSpot.ownerId) {
         res.status(403).json({
-            message: "Spot must belong to the current user"
+            "message": "Spot must belong to the current user"
         })
     }
 
@@ -178,8 +178,25 @@ router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
 })
 
 
-router.delete('/', async (req, res, next) => {
+router.delete('/:spotId', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const spotToDelete = await Spot.findByPk(spotId)
 
+    if(req.user.id !== spotToDelete.ownerId){
+        return res.status(403).json({
+            "message": "Spot must belong to the current user"
+        })
+    }
+
+    if(!spotToDelete) {
+        res.status(404).json({
+            "message": "Spot couldn't be found"
+          })
+    }
+    await spotToDelete.destroy();
+    res.status(200).json({
+        "message": "Successfully deleted"
+      })
 
 })
 
