@@ -11,9 +11,6 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 
-const authenticate = [
-
-]
 
 // Get all Spots
 // unfinished: need avgRating, previewImage
@@ -35,7 +32,6 @@ router.get('/', async (req, res, next) => {
 
 
 // Get all spots owned by Current User
-// need "Spots" at beginning of response
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const spots = await Spot.findAll({
@@ -43,7 +39,9 @@ router.get('/current', requireAuth, async (req, res, next) => {
             ownerId: id
         }
     })
-    res.json(spots)
+    res.json({
+        "Spots": spots
+    })
 });
 
 // Get details of a Spot from an id
@@ -107,6 +105,7 @@ const spotChecker = [
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
+
 // Create a Spot
 router.post('/', requireAuth, spotChecker, async (req, res, next) => {
     const user = req.user.id;
@@ -141,7 +140,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     }
 
     if (user !== spot.ownerId) {
-        res.json({
+        res.status(403).json({
             "message": "Spot must belong to the current user"
         })
     }
@@ -186,7 +185,6 @@ router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
     updatedSpot.name = name;
     updatedSpot.description = description;
     updatedSpot.price = price;
-
 
     await updatedSpot.save();
     res.status(200).json(updatedSpot)
