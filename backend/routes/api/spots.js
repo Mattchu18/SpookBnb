@@ -3,12 +3,13 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User, Spot, SpotImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review } = require('../../db/models');
 
 const router = express.Router();
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { requireAuth } = require('../../utils/auth');
 
 const authenticate = [
 
@@ -25,14 +26,15 @@ router.get('/', async (req, res, next) => {
 
 // Get all spots owned by Current User
 // Unfinished: need to authorize/authenticate
-router.get('/current', async (req, res, next) => {
-    //const current =
+router.get('/current', requireAuth, async (req, res, next) => {
+    const id = req.user.id;
     const spots = await Spot.findAll({
         where: {
-            userId: current //define current
+            ownerId: id
         }
     })
-
+    // console.log(id)
+    res.json(spots)
 });
 
 // Get details of a Spot from an id
@@ -56,8 +58,7 @@ router.get('/:spotId', async (req, res, next) => {
     res.status(200).json(spots)
 })
 
-// Create a Spot
-// unfinished
+
 const spotChecker = [
     check('address')
         .exists({ checkFalsy: true })
@@ -97,6 +98,8 @@ const spotChecker = [
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
+// Create a Spot
+// unfinished
 router.post('/', spotChecker, async (req, res, next) => {
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
     const newSpot = await Spot.create({
@@ -142,12 +145,18 @@ router.post('/:spotId/images', async (req, res, next) => {
 });
 
 // Edit a Spot
-router.put('/:spotId', spotChecker, async (req, res, next) => {
+router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
     const { spotId } = req.params;
     const updatedSpot = await Spot.findByPk(spotId);
     // console.log('updatedSpot', updatedSpot)
 
-    if(!updatedSpot){
+    if (req.user.id !== updatedSpot.ownerId) {
+        res.status(403).json({
+            message: "Spot must belong to the current user"
+        })
+    }
+
+    if (!updatedSpot) {
         return res.status(404).json({
             "message": "Spot couldn't be found"
         })
@@ -166,7 +175,6 @@ router.put('/:spotId', spotChecker, async (req, res, next) => {
 
     await updatedSpot.save();
     res.status(200).json(updatedSpot)
-
 })
 
 
