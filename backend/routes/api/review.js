@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User, Spot, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, Review, ReviewImage, SpotImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -15,6 +15,15 @@ const { requireAuth } = require('../../utils/auth');
 // need previewImage
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
+    const reviewImg = await SpotImage.findAll({
+        where: {
+            preview: 'true'
+        }
+    })
+
+    // res.json(reviewImg)
+    // res.json(reviewImg[0].url)
+
     const reviews = await Review.findAll({
         where: {
             userId: id
@@ -33,9 +42,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
                     'lat',
                     'lng',
                     'name',
-                    'price',
-                    //'previewImage'
-                ]
+                    'price'
+                ],
+                include: {
+                    model: SpotImage
+                }
             },
             {
                 model: ReviewImage,
@@ -45,9 +56,26 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 ]
             }
         ]
+    });
+    let arr = [];
+    reviews.forEach(review => {
+        arr.push(review.toJSON())
     })
+
+    arr.forEach(review => {
+        review.Spot.SpotImages.forEach(url => {
+            if(url.preview === true){
+                review.Spot.previewImage = url.url
+            }
+        })
+    })
+
+    arr.forEach(review => {
+        delete review.Spot.SpotImages
+    })
+
     res.json({
-        "Reviews": reviews
+        "Reviews": arr
     })
 })
 
