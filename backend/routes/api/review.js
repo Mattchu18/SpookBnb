@@ -68,10 +68,10 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     });
     const findReview = await Review.findByPk(reviewId)
 
-    if(!findReview){
+    if (!findReview) {
         res.status(404).json({
             "message": "Review couldn't be found"
-          })
+        })
     }
 
     if (!belongs) {
@@ -96,8 +96,50 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         id: newReviewImage.id,
         url: newReviewImage.url
     })
+});
+
+const reviewChecker = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Review text is required"),
+    check('stars')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+];
+
+// Edit a Review
+// Update and return and existing review.
+router.put('/:reviewId', requireAuth, reviewChecker, async (req, res, next) => {
+    const { reviewId } = req.params;
+    const userId = req.user.id;
+    const { review, stars } = req.body;
+    const belongs = await Review.findOne({
+        where: {
+            id: reviewId,
+            userId
+        }
+    });
+    const updatedReview = await Review.findByPk(reviewId);
+
+    if(!updatedReview) {
+        res.status(404).json({
+            "message": "Review couldn't be found"
+          })
+    };
+    if(!belongs) {
+        res.status(403).json({
+            "message": "Review must belong to the current user"
+        })
+    };
+
+    updatedReview.review = review;
+    updatedReview.stars = stars;
+
+    await updatedReview.save();
+    res.status(200).json(updatedReview);
 })
-
-
 
 module.exports = router;
