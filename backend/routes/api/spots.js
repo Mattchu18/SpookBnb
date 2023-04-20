@@ -27,7 +27,7 @@ router.get('/', async (req, res, next) => {
 
     // const reviews = await Review.findAll({
     //     where: {
-    //         spotId: spots.id
+    //         spotId: spots[0].id //need all reviews -- do a forEach for all reviews and get the specific spots reviews
     //     }
     // })
 
@@ -45,7 +45,7 @@ router.get('/', async (req, res, next) => {
 
     // })
 
-    res.status(200).json({ "Spots": spots })
+    return res.status(200).json({ "Spots": spots })
 })
 
 
@@ -57,7 +57,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             ownerId: id
         }
     })
-    res.json({
+    return res.json({
         "Spots": spots
     })
 });
@@ -76,11 +76,11 @@ router.get('/:spotId', async (req, res, next) => {
         ]
     })
     if (!spots) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Spot couldn't be found"
         })
     }
-    res.status(200).json(spots)
+    return res.status(200).json(spots)
 })
 
 
@@ -141,7 +141,7 @@ router.post('/', requireAuth, spotChecker, async (req, res, next) => {
         price
     })
 
-    res.status(201).json(newSpot)
+    return res.status(201).json(newSpot)
 })
 
 // Add an image to a Spot based on the Spot's id
@@ -158,8 +158,8 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
     }
 
     if (user !== spot.ownerId) {
-        res.status(403).json({
-            "message": "Spot must belong to the current user"
+        return res.status(403).json({
+            "message": "Forbidden"
         })
     }
 
@@ -169,7 +169,7 @@ router.post('/:spotId/images', requireAuth, async (req, res, next) => {
         preview
     })
 
-    res.status(200).json({
+    return res.status(200).json({
         id: newImage.id,
         url: newImage.url,
         preview: newImage.preview
@@ -188,8 +188,8 @@ router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
         })
     }
     if (req.user.id !== updatedSpot.ownerId) {
-        res.status(403).json({
-            "message": "Spot must belong to the current user"
+        return res.status(403).json({
+            "message": "Forbidden"
         })
     }
 
@@ -205,7 +205,7 @@ router.put('/:spotId', requireAuth, spotChecker, async (req, res, next) => {
     updatedSpot.price = price;
 
     await updatedSpot.save();
-    res.status(200).json(updatedSpot)
+    return res.status(200).json(updatedSpot)
 })
 
 // Delete a Spot
@@ -220,12 +220,12 @@ router.delete('/:spotId', requireAuth, async (req, res, next) => {
     }
     if (req.user.id !== spotToDelete.ownerId) {
         return res.status(403).json({
-            "message": "Spot must belong to the current user"
+            "message": "Forbidden"
         })
     }
 
     await spotToDelete.destroy();
-    res.status(200).json({
+    return res.status(200).json({
         "message": "Successfully deleted"
     })
 })
@@ -270,7 +270,7 @@ const reviewChecker = [
         .notEmpty()
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
-]
+];
 // Create a Review for a Spot based on the Spot's id
 router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, next) => {
     const id = req.params.spotId;
@@ -330,7 +330,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     });
 
     if (!spot) {
-        return res.status(200).json({
+        return res.status(404).json({
             "message": "Spot couldn't be found"
         })
     };
@@ -350,16 +350,17 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
 })
 
-const bookingChecker = [
-    check('endDate')
-        .exists({ checkFalsy: true })
-        .notEmpty()
-        .withMessage("endDate cannot be on or before startDate"),
-    handleValidationErrors
-];
+// const bookingChecker = [
+//     check('endDate')
+//         .exists({ checkFalsy: true })
+//         .notEmpty()
+//         .withMessage("endDate cannot be on or before startDate"),
+//     handleValidationErrors
+// ];
 
 // Create a Booking from a Spot based on the Spot's id
-router.post('/:spotId/bookings', requireAuth, bookingChecker, async (req, res, next) => {
+// took out bookingChecker
+router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
     const { spotId } = req.params;
     const userId = req.user.id;
     const { startDate, endDate } = req.body;
@@ -377,7 +378,7 @@ router.post('/:spotId/bookings', requireAuth, bookingChecker, async (req, res, n
     }
     if (userId === spot.ownerId) {
         return res.status(403).json({
-            "message": "Spot must NOT belong to the current user"
+            "message": "Forbidden"
         })
     }
     // console.log(new Date(startDate).getTime())

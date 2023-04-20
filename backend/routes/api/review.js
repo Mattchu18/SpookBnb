@@ -72,7 +72,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         delete review.Spot.SpotImages
     })
 
-    res.json({
+    return res.json({
         "Reviews": arr
     })
 })
@@ -96,14 +96,14 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
     const findReview = await Review.findByPk(reviewId)
 
     if (!findReview) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Review couldn't be found"
         })
     }
 
     if (!belongs) {
-        res.status(403).json({
-            "message": "Review must belong to the current user"
+        return res.status(403).json({
+            "message": "Forbidden"
         })
     }
     // console.log(reviewImage.length)
@@ -119,7 +119,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
         url
     })
 
-    res.status(200).json({
+    return res.status(200).json({
         id: newReviewImage.id,
         url: newReviewImage.url
     })
@@ -151,13 +151,13 @@ router.put('/:reviewId', requireAuth, reviewChecker, async (req, res, next) => {
     const updatedReview = await Review.findByPk(reviewId);
 
     if(!updatedReview) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Review couldn't be found"
           })
     };
     if(!belongs) {
-        res.status(403).json({
-            "message": "Review must belong to the current user"
+        return res.status(403).json({
+            "message": "Forbidden"
         })
     };
 
@@ -165,7 +165,7 @@ router.put('/:reviewId', requireAuth, reviewChecker, async (req, res, next) => {
     updatedReview.stars = stars;
 
     await updatedReview.save();
-    res.status(200).json(updatedReview);
+    return res.status(200).json(updatedReview);
 })
 
 // Delete a Review
@@ -181,13 +181,13 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
     const deleteReview = await Review.findByPk(reviewId);
 
     if(!deleteReview) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Review couldn't be found"
           })
     };
     if(!belongs) {
-        res.status(403).json({
-            "message": "Review must belong to the current user"
+        return res.status(403).json({
+            "message": "Forbidden"
         })
     };
 
