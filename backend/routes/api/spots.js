@@ -49,7 +49,7 @@ const queryValidator = [
         .optional()
         .isFloat({ min: 0 })
         .withMessage("Maximum price must be greater than or equal to 0")
-    ,handleValidationErrors
+    , handleValidationErrors
 ];
 // Get all Spots
 // unfinished: need avgRating, previewImage
@@ -101,35 +101,40 @@ router.get('/', queryValidator, async (req, res, next) => {
 
     const spots = await Spot.findAll({
         include: [
-            {
-                model: SpotImage,
-                model: Review
-            },
+            {model: SpotImage},
+            {model: Review}
         ],
         ...pagination,
         where
     });
 
-    // const reviews = await Review.findAll({
-    //     where: {
-    //         spotId: spots[0].id //need all reviews -- do a forEach for all reviews and get the specific spots reviews
-    //     }
-    // })
-
-    // let arr = [];
-    // spots.forEach(spot => {
-    //     arr.push(spot.toJSON())
-    // })
-
-    // arr.forEach(spot => {
-    //     // spot.Reviews.forEach(review => {
-    //     //     spot.Reviews.Count()
-
-    //     // })
-    // })
 
 
-    return res.status(200).json({ "Spots": spots, page, size })
+    let arr = [];
+    spots.forEach(spot => {
+        arr.push(spot.toJSON())
+    })
+
+    arr.forEach(spot => {
+        let stars = 0;
+        let count = 0;
+        spot.Reviews.forEach(review => {
+            stars += review.stars
+            count++
+        })
+        spot.avgRating = stars/count
+
+        spot.SpotImages.forEach(image => {
+            if (image.preview === true) {
+                spot.previewImage = image.url;
+            }
+        })
+    })
+
+    arr.forEach(spot => delete spot.SpotImages)
+    arr.forEach(spot => delete spot.Reviews)
+
+    return res.status(200).json({ "Spots": arr, page, size })
 })
 
 
