@@ -350,7 +350,35 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
 })
 
+const bookingChecker = [
+    check('endDate')
+        .exists({ checkFalsy: true })
+        .notEmpty()
+        .withMessage("endDate cannot be on or before startDate"),
+    handleValidationErrors
+];
 
+// Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', requireAuth, bookingChecker, async (req, res, next) => {
+    const { spotId } = req.params;
+    const userId = req.user.id;
+    const { startDate, endDate } = req.body;
+    const spot = await Spot.findByPk(spotId);
 
+    if(userId === spot.ownerId) {
+        res.status(403).json({
+            "message": "Spot must NOT belong to the current user"
+        })
+    }
+
+    const booking = await Booking.create({
+        spotId: spot.id,
+        userId,
+        startDate,
+        endDate
+    })
+
+    return res.status(200).json(booking)
+})
 
 module.exports = router;
