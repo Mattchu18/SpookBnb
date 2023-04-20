@@ -142,12 +142,42 @@ router.get('/', queryValidator, async (req, res, next) => {
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const spots = await Spot.findAll({
+        include: [
+            {model: SpotImage},
+            {model: Review}
+        ],
         where: {
             ownerId: id
         }
     })
+
+// console.log(spots)
+    let arr = [];
+    spots.forEach(spot => {
+        arr.push(spot.toJSON())
+    })
+// console.log("arr", arr)
+    arr.forEach(spot => {
+        let stars = 0;
+        let count = 0;
+        spot.Reviews.forEach(review => {
+            stars += review.stars
+            count++
+        })
+        spot.avgRating = stars/count
+
+        spot.SpotImages.forEach(image => {
+            if (image.preview === true) {
+                spot.previewImage = image.url;
+            }
+        })
+    })
+
+    arr.forEach(spot => delete spot.SpotImages)
+    arr.forEach(spot => delete spot.Reviews)
+
     return res.json({
-        "Spots": spots
+        "Spots": arr
     })
 });
 
