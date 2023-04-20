@@ -3,7 +3,7 @@ const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
 const { setTokenCookie, restoreUser } = require('../../utils/auth');
-const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 
 const router = express.Router();
 
@@ -307,6 +307,49 @@ router.post('/:spotId/reviews', requireAuth, reviewChecker, async (req, res, nex
 
     return res.status(201).json(newReview)
 })
+
+// Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
+    const { spotId } = req.params;
+    const userId = req.user.id;
+    const spot = await Spot.findByPk(spotId);
+    const ownerBookings = await Booking.findAll({
+        where: {
+            // userId,
+            spotId
+        },
+        include: {
+            model: User
+        },
+    })
+    const notOwnerBookings = await Booking.findAll({
+        where: {
+            spotId
+        },
+        attributes: ['spotId', 'startDate', 'endDate']
+    });
+
+    if (!spot) {
+        return res.status(200).json({
+            "message": "Spot couldn't be found"
+          })
+    };
+
+    // console.log(userId, spot.ownerId)
+    if (userId !== spot.ownerId) {
+        return res.status(200).json({
+            "Bookings": notOwnerBookings
+        })
+    };
+
+    if (userId === spot.ownerId) {
+        return res.status(200).json({
+            "Bookings": ownerBookings
+        })
+    };
+
+})
+
 
 
 
