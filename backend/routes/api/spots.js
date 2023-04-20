@@ -25,27 +25,27 @@ router.get('/', async (req, res, next) => {
         ]
     });
 
-    const reviews = await Review.findAll({
-        where: {
-            spotId: spots.id
-        }
-    })
+    // const reviews = await Review.findAll({
+    //     where: {
+    //         spotId: spots.id
+    //     }
+    // })
 
-    let arr = [];
-    spots.forEach(spot => {
-        arr.push(spot.toJSON())
-    })
+    // let arr = [];
+    // spots.forEach(spot => {
+    //     arr.push(spot.toJSON())
+    // })
 
-    arr.forEach(spot => {
-        // spot.Reviews.forEach(review => {
-        //     spot.Reviews.Count()
+    // arr.forEach(spot => {
+    //     // spot.Reviews.forEach(review => {
+    //     //     spot.Reviews.Count()
 
-        // })
+    //     // })
 
 
-    })
+    // })
 
-    res.status(200).json(spots)
+    res.status(200).json({ "Spots": spots })
 })
 
 
@@ -332,7 +332,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
     if (!spot) {
         return res.status(200).json({
             "message": "Spot couldn't be found"
-          })
+        })
     };
 
     // console.log(userId, spot.ownerId)
@@ -364,12 +364,60 @@ router.post('/:spotId/bookings', requireAuth, bookingChecker, async (req, res, n
     const userId = req.user.id;
     const { startDate, endDate } = req.body;
     const spot = await Spot.findByPk(spotId);
+    const bookings = await Booking.findAll({
+        where: {
+            spotId
+        }
+    });
 
-    if(userId === spot.ownerId) {
-        res.status(403).json({
+    if (!spot) {
+        return res.status(404).json({
+            "message": "Spot couldn't be found"
+        })
+    }
+    if (userId === spot.ownerId) {
+        return res.status(403).json({
             "message": "Spot must NOT belong to the current user"
         })
     }
+    // console.log(new Date(startDate).getTime())
+    // console.log(new Date(endDate).getTime())
+
+    const reqStart = new Date(startDate).getTime();
+    const reqEnd = new Date(endDate).getTime()
+
+    // console.log(bookings);
+    // console.log(bookings[0].toJSON());
+    let arr = [];
+    bookings.forEach(booking => {
+        arr.push(booking.toJSON());
+    })
+
+    // console.log(arr);
+    arr.forEach(booking => {
+        const start = new Date(booking.startDate).getTime();
+        const end = new Date(booking.endDate).getTime();
+
+        if (reqStart >= reqEnd) {
+            return res.status(400).json({
+                "message": "Bad Request",
+                "errors": {
+                    "endDate": "endDate cannot be on or before startDate"
+                }
+            })
+        }
+        if ((reqStart >= start && reqStart < end) || (reqEnd > start && reqEnd <= end) || (reqStart <= start && reqEnd >= end)) {
+            return res.status(403).json({
+                "message": "Sorry, this spot is already booked for the specified dates",
+                "errors": {
+                    "startDate": "Start date conflicts with an existing booking",
+                    "endDate": "End date conflicts with an existing booking"
+                }
+            })
+        }
+
+    })
+    // console.log(arr);
 
     const booking = await Booking.create({
         spotId: spot.id,
