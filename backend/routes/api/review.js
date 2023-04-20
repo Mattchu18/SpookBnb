@@ -12,6 +12,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 
 // Get all Reviews of the Current User
+// unfinished??
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
     const reviewImg = await SpotImage.findAll({
