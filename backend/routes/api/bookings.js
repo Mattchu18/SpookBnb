@@ -151,13 +151,17 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 // Delete a Booking
 router.all('/:bookingId', requireAuth, async (req, res, next) => {
     const { bookingId } = req.params;
-    const booking = await Booking.findByPk(bookingId);
-    const userId = req.user.id;
-    const spot = await Spot.findOne({
-        where: {
-            ownerId: userId
+    const booking = await Booking.findByPk(bookingId, {
+        include: {
+            model: Spot
         }
-    })
+    });
+    const userId = req.user.id;
+    // const spot = await Spot.findOne({
+    //     where: {
+    //         ownerId: userId
+    //     }
+    // })
 
     if (!booking) {
         return res.status(404).json({
@@ -170,11 +174,15 @@ router.all('/:bookingId', requireAuth, async (req, res, next) => {
     // console.log(userId, booking.userId, spot)
     // if (userId !== booking.userId && userId !== spot.ownerId) {
         // if (userId !== booking.userId && userId !== spot && userId !== spot.ownerId) {
-    if (!(userId === booking.userId || userId === spot.ownerId)) {
+
+        //the spot owner cant delete bookings for his spot
+        // console.log(booking)
+    if (!(userId === booking.userId || userId === booking.Spot.ownerId)) {
         return res.status(403).json({
             "message": "Forbidden"
         })
     };
+
     const current = new Date().getTime();
     const start = new Date(booking.startDate).getTime();
 
