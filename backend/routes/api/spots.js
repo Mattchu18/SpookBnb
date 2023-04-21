@@ -189,20 +189,23 @@ router.get('/:spotId', async (req, res, next) => {
         where: { id: spotId },
         include: [
             { model: Review },
-            { model: SpotImage },
+            { model: SpotImage,
+            attributes: ["id", "url", "preview"] },
             {
                 model: User,
-                as: 'Owner'
+                as: 'Owner',
+                attributes: ["id", "firstName", "lastName"]
             }
         ]
-    })
+    });
+    const spotExists = await Spot.findByPk(spotId);
     // console.log("JSON", spots.toJSON())
     // res.json({'SPOTS':spots.Reviews})
-    if (!spots) {
+    if (!spotExists) {
         return res.status(404).json({
             "message": "Spot couldn't be found"
         })
-    }
+    };
 
     let arr = [];
     // let arr = [spots.toJSON()];
