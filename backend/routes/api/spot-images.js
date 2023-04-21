@@ -37,7 +37,7 @@ router.delete('/:imageId', requireAuth, async (req, res, next) => {
         })
     };
 
-    spotImage.destroy();
+    await spotImage.destroy();
     return res.status(200).json({
         "message": "Successfully deleted"
     })

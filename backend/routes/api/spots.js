@@ -254,14 +254,17 @@ const spotChecker = [
     check('lat')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isDecimal()
         .withMessage("Latitude is not valid"),
     check('lng')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isDecimal()
         .withMessage("Longitude is not valid"),
     check('name')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isLength({max:49})
         .withMessage("Name must be less than 50 characters"),
     check('description')
         .exists({ checkFalsy: true })
@@ -270,6 +273,7 @@ const spotChecker = [
     check('price')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isDecimal()
         .withMessage("Price per day is required"),
     handleValidationErrors
 ];
@@ -418,6 +422,8 @@ const reviewChecker = [
     check('stars')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isNumeric({ checkFalsy: true} )
+        .isInt( { min:1, max: 5 } )
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ];
@@ -539,6 +545,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     // console.log(bookings);
     // console.log(bookings[0].toJSON());
+    let conflict = false;
     let arr = [];
     bookings.forEach(booking => {
         arr.push(booking.toJSON());
@@ -550,6 +557,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const end = new Date(booking.endDate).getTime();
 
         if (reqStart >= reqEnd) {
+            if(conflict) return;
+            conflict = true;
             return res.status(400).json({
                 "message": "Bad Request",
                 "errors": {
@@ -558,6 +567,8 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
             })
         }
         if ((reqStart >= start && reqStart < end) || (reqEnd > start && reqEnd <= end) || (reqStart <= start && reqEnd >= end)) {
+            if(conflict) return;
+            conflict = true;
             return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "errors": {
@@ -569,6 +580,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res, next) => {
 
     })
     // console.log(arr);
+    if(conflict) return;
 
     const booking = await Booking.create({
         spotId: spot.id,

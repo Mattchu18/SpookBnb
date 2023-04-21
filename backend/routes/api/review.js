@@ -12,14 +12,8 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { requireAuth } = require('../../utils/auth');
 
 // Get all Reviews of the Current User
-// unfinished??
 router.get('/current', requireAuth, async (req, res, next) => {
     const id = req.user.id;
-    const reviewImg = await SpotImage.findAll({
-        where: {
-            preview: 'true'
-        }
-    })
 
     const reviews = await Review.findAll({
         where: {
@@ -106,7 +100,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res, next) => {
             "message": "Forbidden"
         })
     }
-    // console.log(reviewImage.length)
+    console.log(reviewImage)
 
     if (reviewImage.length >= 10) {
         return res.status(403).json({
@@ -133,6 +127,8 @@ const reviewChecker = [
     check('stars')
         .exists({ checkFalsy: true })
         .notEmpty()
+        .isNumeric({ checkFalsy: true} )
+        .isInt( { min:1, max: 5 } )
         .withMessage("Stars must be an integer from 1 to 5"),
     handleValidationErrors
 ];
@@ -191,8 +187,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
         })
     };
 
-    deleteReview.destroy();
-
+    await deleteReview.destroy();
     return res.status(200).json({
         "message": "Successfully deleted"
       })

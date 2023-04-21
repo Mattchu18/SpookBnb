@@ -59,21 +59,21 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     const { startDate, endDate } = req.body;
     let conflict = false;
 
-    console.log(new Date(booking.startDate).getTime())
+    // console.log(new Date(booking.startDate).getTime())
     if (!booking) {
         return res.status(404).json({
             "message": "Booking couldn't be found"
         })
     };
 
-    console.log(booking.userId)
+    // console.log(booking.userId)
     if (userId !== booking.userId) {
         return res.status(403).json({
             "message": "Forbidden"
         })
     };
 
-    console.log(new Date().getTime())
+    // console.log(new Date().getTime())
 
 
     const reqStart = new Date(startDate).getTime();
@@ -82,8 +82,9 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
 
 
     if (reqStart >= reqEnd || reqEnd <= reqStart) {
+        if (conflict) return;
         conflict = true;
-        console.log( 'DONE2', conflict)
+        // console.log( 'DONE2', conflict)
 
         return res.status(400).json({
             "message": "Bad Request",
@@ -93,35 +94,36 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
         })
     }
 
-    console.log(new Date().getTime())
+    // console.log(new Date().getTime())
 
     let arr = [];
     bookings.forEach(booking => {
         arr.push(booking.toJSON());
     });
 
-    console.log(arr);
-
+    // console.log(arr);
     // res.json(arr)
+    if (new Date(booking.startDate).getTime() < new Date().getTime()) {
+        if (conflict) return;
+        conflict = true;
+        // console.log( 'DONE1', conflict)
+
+        return res.status(403).json({
+            "message": "Past bookings can't be modified"
+        })
+    };
 
     arr.forEach(booking => {
         const start = new Date(booking.startDate).getTime();
         const end = new Date(booking.endDate).getTime();
         // console.log(reqStart, start)
         // console.log(reqEnd, end)
-
-        if (new Date(booking.startDate).getTime() < new Date().getTime()) {
-            conflict = true;
-            console.log( 'DONE1', conflict)
-
-            return res.status(403).json({
-                "message": "Past bookings can't be modified"
-            })
-        };
+        // console.log(new Date().getTime())
 
         if ((reqStart >= start && reqStart < end) || (reqEnd > start && reqEnd <= end) || (reqStart <= start && reqEnd >= end)) {
+            if (conflict) return;
             conflict = true;
-            console.log( 'DONE3', conflict)
+            // console.log( 'DONE3', conflict)
             return res.status(403).json({
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "errors": {
@@ -133,9 +135,7 @@ router.put('/:bookingId', requireAuth, async (req, res, next) => {
     });
 
 
-    if (conflict) {
-        return;
-    };
+    if (conflict) return;
 
     // update values
     booking.startDate = startDate;
@@ -160,13 +160,17 @@ router.all('/:bookingId', requireAuth, async (req, res, next) => {
     })
 
     if (!booking) {
-        res.status(404).json({
+        return res.status(404).json({
             "message": "Booking couldn't be found"
-          })
+        })
     };
 
-    // console.log(userId, booking.userId, spot.ownerId)
-    if (userId !== booking.userId && userId !== spot.ownerId) {
+    // if( userId !== booking.userId && !spot)&& userId !== spot.userId
+
+    // console.log(userId, booking.userId, spot)
+    // if (userId !== booking.userId && userId !== spot.ownerId) {
+        // if (userId !== booking.userId && userId !== spot && userId !== spot.ownerId) {
+    if (!(userId === booking.userId || userId === spot.ownerId)) {
         return res.status(403).json({
             "message": "Forbidden"
         })
@@ -178,13 +182,13 @@ router.all('/:bookingId', requireAuth, async (req, res, next) => {
     if (start <= current) {
         return res.status(403).json({
             "message": "Bookings that have been started can't be deleted"
-          })
+        })
     };
 
-    booking.destroy();
+    await booking.destroy();
     return res.status(200).json({
         "message": "Successfully deleted"
-      });
+    });
 });
 
 module.exports = router;
