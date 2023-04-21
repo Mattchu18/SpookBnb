@@ -19,6 +19,16 @@ module.exports = {
         spotId: '2',
         url: 'www.imageforspotId2.com',
         preview: 'true',
+      },
+      {
+        spotId: '3',
+        url: 'www.imageforspotId3.com',
+        preview: 'true',
+      },
+      {
+        spotId: '4',
+        url: 'www.imageforspotId4.com',
+        preview: 'true',
       }
     ], {});
   },

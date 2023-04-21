@@ -12,27 +12,51 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         ownerId: '1',
-        address: '1234 Test Way',
+        address: '1 Spot User Way',
         city: 'Test City',
         state: 'CA',
         country: 'USA',
         lat: '1.2345',
         lng: '1.2345',
+        name: 'Beautiful spot near Test City!',
+        description: 'The most beautifulest spot that has more beautiful spots around.',
+        price: '10'
+      },
+      {
+        ownerId: '2',
+        address: '2 Spot User Way',
+        city: 'Test City',
+        state: 'CA',
+        country: 'USA',
+        lat: '11.2345',
+        lng: '5.2345',
+        name: 'Beautiful spot near Test City!',
+        description: 'The most beautifulest spot that has more beautiful spots around.',
+        price: '200'
+      },
+      {
+        ownerId: '3',
+        address: '3 Spot User Way',
+        city: 'Test City',
+        state: 'CA',
+        country: 'USA',
+        lat: '11.2345',
+        lng: '13.2345',
         name: 'Beautiful spot near Test City!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
         price: '500'
       },
       {
-        ownerId: '2',
-        address: '54321 Test Way',
+        ownerId: '4',
+        address: '4 Spot User Way',
         city: 'Test City',
         state: 'CA',
         country: 'USA',
-        lat: '1.2345',
-        lng: '1.2345',
+        lat: '11.2345',
+        lng: '0.2345',
         name: 'Beautiful spot near Test City!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
-        price: '500'
+        price: '999'
       },
     ], {});
   },
