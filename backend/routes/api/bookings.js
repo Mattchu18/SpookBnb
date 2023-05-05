@@ -34,7 +34,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         arr.push(booking.toJSON())
     });
 
-    console.log("arr", arr)
     arr.forEach(spot => {
         spot.Spot.SpotImages.forEach(url => {
             if (url.preview === true) {
