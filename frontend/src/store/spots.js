@@ -16,7 +16,7 @@ export const getAllSpots = () => async (dispatch) => {
         dispatch(loadSpots(data))
         return data
     }
-}
+};
 
 
 const spotsReducer = (state = {}, action) => {
@@ -30,6 +30,6 @@ const spotsReducer = (state = {}, action) => {
         default:
             return state;
     }
-}
+};
 
 export default spotsReducer;
