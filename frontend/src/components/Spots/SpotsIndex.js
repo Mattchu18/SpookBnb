@@ -14,9 +14,15 @@ const SpotsIndex = () => {
 
     return (
         <>
-        <ul>
-            {}
-        </ul>
+            <ul>
+                {spots.map((spot) => (
+
+                    <div>
+                        <img src={spot.previewImage} />
+                        {spot.city}, {spot.state}
+                    </div>
+                ))}
+            </ul>
 
 
         </>

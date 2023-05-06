@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import { Route } from "react-router-dom";
 
 import SpotsIndex from "./components/Spots/SpotsIndex"
+import SpotShow from "./components/Spots/SpotShow"
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/" component={SpotsIndex} />
+          <Route exact path="/spots/:spotId" component={SpotShow} />
         </Switch>
       )}
     </>
