@@ -1,7 +1,11 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createSpot } from '../../store/spots';
 
-
-const SpotForm = ({ form, formType }) => {
+const SpotForm = ({ spot, formType }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
@@ -11,19 +15,48 @@ const SpotForm = ({ form, formType }) => {
     const [price, setPrice] = useState("")
     const [previewImage, setPreviewImage] = useState("") //might need to be boolean?...
     const [imageUrl, setImageURL] = useState("")
+    const [vaidationErrors, setValidationErrors] = useState("")
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        spot = {
+            ...spot,
+            address,
+            city,
+            state,
+            country,
+            name,
+            description,
+            price,
+            previewImage,
+            imageUrl
+        }
+        dispatch(createSpot(spot))
+        history.push("/")
+    }
+
 
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <h2>Spot Form Name</h2>
-            <label>
-                Country
-                <input
-                    type="text"
-                    value={country}
-                    onChange={(e) => setCountry(e.target.value)}
-                    placeholder='Country'
-                />
-            </label>
+            <div>
+                <h3>Where's your place located?</h3>
+                Guests will only get your exact address once they booked a reservation.
+            </div>
+            <div>
+                <label>
+                    Country
+                    <input
+                        type="text"
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}
+                        placeholder='Country'
+                    />
+                </label>
+
+            </div>
             <label>
                 Street Address
                 <input
@@ -43,7 +76,7 @@ const SpotForm = ({ form, formType }) => {
                         placeholder='City'
                     />
                 </label>
-                ,
+                <span>, </span>
                 <label>
                     State
                     <input
@@ -62,7 +95,7 @@ const SpotForm = ({ form, formType }) => {
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
-                        placeholder='Pleace write at least 30 characters'
+                        placeholder='Please write at least 30 characters'
                     />
                 </label>
             </div>

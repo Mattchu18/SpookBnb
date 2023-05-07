@@ -1,5 +1,9 @@
+import { csrfFetch } from "./csrf";
+
 const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
 const GET_ONE_SPOT = 'spots/GET_ONE_SPOT';
+const CREATE_SPOT =  'spots/MAKE_SPOT'
+
 
 const loadSpots = (spots) => ({
     type: GET_ALL_SPOTS,
@@ -9,8 +13,12 @@ const loadSpots = (spots) => ({
 const loadOneSpot = (spot) => ({
     type: GET_ONE_SPOT,
     spot
-})
+});
 
+const makeSpot = (spot) => ({
+    type: CREATE_SPOT,
+    spot
+});
 
 export const getAllSpots = () => async (dispatch) => {
     const res = await fetch('/api/spots')
@@ -37,6 +45,22 @@ export const getOneSpot = (spotId) => async (dispatch) => {
 
         dispatch(loadOneSpot(spot))
         return spot
+    }
+}
+
+export const createSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch('/api/spots', {
+        "method": "POST",
+        "headers": { 'Content-Type': 'application/json' },
+        "body": JSON.stringify(spot)
+    })
+    if (res.status === 400) {
+        const data = await res.json()
+        console.log(data) //change later to set any errors?
+    }
+    if (res.status === 201) {
+        const data = await res.json()
+        dispatch(makeSpot(data))
     }
 }
 
