@@ -72,13 +72,14 @@ export const createSpot = (spot) => async (dispatch) => {
     }
 }
 
-export const getSpotCurrentUser = (spots) => async (dispatch) => {
+export const getSpotCurrentUser = () => async (dispatch) => {
     const res = await csrfFetch('/api/spots/current')
 
     if (res.ok) {
         const data = await res.json();
-        dispatch(getCurrSpot(data.spots))
-        return data
+        // console.log("getSpotCurrentUser ==>", data)
+        dispatch(getCurrSpot(data.Spots))
+        return data.Spots
     }
 
 }
@@ -150,6 +151,18 @@ const spotsReducer = (state = initialState, action) => {
                     [action.spot.id]: action.spot
                 }
             }
+            case GET_CURR_SPOTS:
+                return {
+                    ...state,
+                    allSpots: action.spots.reduce(
+                        (acc, spot) => ({ ...acc, [spot.id]: spot }),
+                        {}
+                    ),
+                    currentUserSpots: action.spots.reduce(
+                        (acc, spot) => ({ ...acc, [spot.id]: spot }),
+                        {}
+                    )
+                }
         default:
             return state;
     }

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const SpotsIndex = () => {
     const dispatch = useDispatch();
+    //we use Object.values bc we need to have our spots iterable
     const spots = useSelector((state) => Object.values(state.spots.allSpots))
 
     console.log("spotsIndex: ", spots)
