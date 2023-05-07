@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const SpotsIndex = () => {
     const dispatch = useDispatch();
-    const spots = useSelector((state) => Object.values(state.spots))
+    const spots = useSelector((state) => Object.values(state.spots.allSpots))
 
     console.log("spotsIndex: ", spots)
 

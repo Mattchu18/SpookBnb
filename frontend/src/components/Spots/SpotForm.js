@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createSpot } from '../../store/spots';
+import { createSpot, editSpot } from '../../store/spots';
 
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
@@ -37,8 +37,15 @@ const SpotForm = ({ spot, formType }) => {
             previewImage,
             imageUrl
         }
-        dispatch(createSpot(spot))
-        history.push("/")
+
+        if(formType === "Create Spot"){
+            dispatch(createSpot(spot))
+            history.push("/")
+        }
+        if(formType === "Edit Spot"){
+            dispatch(editSpot(spot))
+            history.push("/")
+        }
     }
 
 

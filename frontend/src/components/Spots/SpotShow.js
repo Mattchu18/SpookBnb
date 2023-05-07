@@ -7,7 +7,7 @@ const SpotShow = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     console.log("spotId: ", spotId)
-    const spot = useSelector((state) => state.spots[spotId])
+    const spot = useSelector((state) => state.spots.allSpots[spotId])
 
     console.log("inside SpotShow: ", spot)
 

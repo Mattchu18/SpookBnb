@@ -2,8 +2,8 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
 const GET_ONE_SPOT = 'spots/GET_ONE_SPOT';
-const DO_SPOT = 'spots/DO_SPOT'
-
+const UPSERT_SPOT = 'spots/UPSERT_SPOT'
+const GET_CURR_SPOTS = 'spots/GET_CURR_SPOTS'
 
 const loadSpots = (spots) => ({
     type: GET_ALL_SPOTS,
@@ -16,12 +16,17 @@ const loadOneSpot = (spot) => ({
 });
 
 const makeSpot = (spot) => ({
-    type: DO_SPOT,
+    type: UPSERT_SPOT,
     spot
 });
 
+const getCurrSpot = (spots) => ({
+    type: GET_CURR_SPOTS,
+    spots
+})
+
 export const getAllSpots = () => async (dispatch) => {
-    const res = await fetch('/api/spots')
+    const res = await csrfFetch('/api/spots')
 
     if (res.ok || res.status === 200) {
         const data = await res.json() //we get { Spots; [spots: {}]}
@@ -34,7 +39,7 @@ export const getAllSpots = () => async (dispatch) => {
 };
 
 export const getOneSpot = (spotId) => async (dispatch) => {
-    const res = await (fetch(`/api/spots/${spotId}`))
+    const res = await (csrfFetch(`/api/spots/${spotId}`))
 
     console.log("res for getOneSpot: ", res)
 
@@ -67,6 +72,17 @@ export const createSpot = (spot) => async (dispatch) => {
     }
 }
 
+export const getSpotCurrentUser = (spots) => async (dispatch) => {
+    const res = await csrfFetch('/api/spots/current')
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(getCurrSpot(data.spots))
+        return data
+    }
+
+}
+
 export const editSpot = (spot) => async (dispatch) => {
     console.log("inside editSpot thunk: ", spot)
     const res = await csrfFetch(`/api/spots/${spot.id}`, {
@@ -92,21 +108,48 @@ export const editSpot = (spot) => async (dispatch) => {
     }
 }
 
-const spotsReducer = (state = {}, action) => {
+const initialState = { allSpots: {}, currentUserSpots: {} };
+
+const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_SPOTS:
-            const spotsState = {};
-            // console.log("inside spotsReducer: ",action)
-            action.spots.forEach((spot) => {
-                spotsState[spot.id] = spot
-            });
-            return spotsState;
+            // const spotsState = { allSpots: {}, currentUserSpots: {...state.currentUserSpots} };
+            // // console.log("inside spotsReducer: ",action)
+            // action.spots.forEach((spot) => {
+            //     spotsState[spot.id] = spot
+            // });
+            // return spotsState;
+            return {
+                ...state,
+                allSpots: action.spots.reduce(
+                    (acc, spot) => ({ ...acc, [spot.id]: spot }),
+                    {}
+                )
+            };
         case GET_ONE_SPOT:
-            console.log("inside spotsReducer: ", action)
-            return { ...state, [action.spot.id]: action.spot };
-        case DO_SPOT:
+            // console.log("inside spotsReducer: ", action)
+            // return { ...state, [action.spot.id]: action.spot };
+            return {
+                ...state,
+                allSpots: {
+                    ...state.allSpots, //we getting all the spots
+                    [action.spot.id]: action.spot   //and then pasting over it with the single spot
+                }
+            };
+        case UPSERT_SPOT:
             console.log("inside spotsReducer DO_SPOT: ", action.spot)
-            return { ...state, [action.spot.id]: action.spot }
+            return {
+                ...state,
+                allSpots: {
+                    ...state.allSpots,
+                    [action.spot.id]: action.spot
+                },
+                currentUserSpots: { //since the user is the only one able to upsert
+                        //we need to deep copy and overriding the keys of the properties
+                    ...state.currentUserSpots,
+                    [action.spot.id]: action.spot
+                }
+            }
         default:
             return state;
     }
