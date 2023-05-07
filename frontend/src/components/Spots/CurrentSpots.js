@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getSpotCurrentUser } from "../../store/spots";
+import SpotIndexItem from "../Spots/SpotIndexItem"
 
 const CurrentSpots = () => {
     const dispatch = useDispatch();
@@ -20,9 +22,13 @@ const CurrentSpots = () => {
         <>
             {spots.map(spot => (
                 <>
-                    <h2>{spot.name}</h2>
+                    <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
                     <p>{spot.id}</p>
                     <p>{spot.address}</p>
+                    <SpotIndexItem
+                        spot={spot}
+                        key={spot.id}
+                    />
                 </>
             ))}
         </>

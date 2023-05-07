@@ -2,8 +2,9 @@ import { csrfFetch } from "./csrf";
 
 const GET_ALL_SPOTS = 'spots/GET_ALL_SPOTS';
 const GET_ONE_SPOT = 'spots/GET_ONE_SPOT';
-const UPSERT_SPOT = 'spots/UPSERT_SPOT'
-const GET_CURR_SPOTS = 'spots/GET_CURR_SPOTS'
+const UPSERT_SPOT = 'spots/UPSERT_SPOT';
+const GET_CURR_SPOTS = 'spots/GET_CURR_SPOTS';
+const DEL_SPOT = 'spots/DEL_SPOT';
 
 const loadSpots = (spots) => ({
     type: GET_ALL_SPOTS,
@@ -23,6 +24,11 @@ const makeSpot = (spot) => ({
 const getCurrSpot = (spots) => ({
     type: GET_CURR_SPOTS,
     spots
+})
+
+const delSpot = (spotId) => ({
+    type: DEL_SPOT,
+    spotId
 })
 
 export const getAllSpots = () => async (dispatch) => {
@@ -109,6 +115,19 @@ export const editSpot = (spot) => async (dispatch) => {
     }
 }
 
+export const deleteSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch(`/api/reports/${spot.id}`,
+    {
+        "method": "DELETE"
+    });
+
+    if (res.ok) {
+        dispatch(delSpot(spot.id))
+
+    }
+
+}
+
 const initialState = { allSpots: {}, currentUserSpots: {} };
 
 const spotsReducer = (state = initialState, action) => {
@@ -146,23 +165,27 @@ const spotsReducer = (state = initialState, action) => {
                     [action.spot.id]: action.spot
                 },
                 currentUserSpots: { //since the user is the only one able to upsert
-                        //we need to deep copy and overriding the keys of the properties
+                    //we need to deep copy and overriding the keys of the properties
                     ...state.currentUserSpots,
                     [action.spot.id]: action.spot
                 }
             }
-            case GET_CURR_SPOTS:
-                return {
-                    ...state,
-                    allSpots: action.spots.reduce(
-                        (acc, spot) => ({ ...acc, [spot.id]: spot }),
-                        {}
-                    ),
-                    currentUserSpots: action.spots.reduce(
-                        (acc, spot) => ({ ...acc, [spot.id]: spot }),
-                        {}
-                    )
-                }
+        case GET_CURR_SPOTS:
+            return {
+                ...state,
+                allSpots: action.spots.reduce(
+                    (acc, spot) => ({ ...acc, [spot.id]: spot }),
+                    {}
+                ),
+                currentUserSpots: action.spots.reduce(
+                    (acc, spot) => ({ ...acc, [spot.id]: spot }),
+                    {}
+                )
+            }
+        case DEL_SPOT:
+            const newState = { ...state };
+            delete newState.allSpots[action.spotId]
+            return newState;
         default:
             return state;
     }
