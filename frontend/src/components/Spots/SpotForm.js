@@ -6,17 +6,17 @@ import { createSpot } from '../../store/spots';
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("")
-    const [state, setState] = useState("")
-    const [lat, setLat] = useState(1)
-    const [lng, setLng] = useState(1)
-    const [country, setCountry] = useState("")
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
-    const [price, setPrice] = useState("")
-    const [previewImage, setPreviewImage] = useState("") //might need to be boolean?...
-    const [imageUrl, setImageURL] = useState("")
+    const [address, setAddress] = useState(spot?.address);
+    const [city, setCity] = useState(spot?.city)
+    const [state, setState] = useState(spot?.state)
+    const [lat, setLat] = useState(spot?.lat ?? 1)
+    const [lng, setLng] = useState(spot?.lng ?? 1)
+    const [country, setCountry] = useState(spot?.country)
+    const [name, setName] = useState(spot?.name)
+    const [description, setDescription] = useState(spot?.description)
+    const [price, setPrice] = useState(spot?.price)
+    const [previewImage, setPreviewImage] = useState(spot?.previewImage) //might need to be boolean?...
+    const [imageUrl, setImageURL] = useState(spot?.imageUrl)
     const [vaidationErrors, setValidationErrors] = useState("")
 
 

@@ -57,16 +57,19 @@ export const createSpot = (spot) => async (dispatch) => {
     if (res.status === 400) { //doublecheck the res.status in backend -- might be diff status code
         const data = await res.json()
         console.log("you are in res.status 400: ", data) //change later to set any errors?
+        return data
     }
     if (res.status === 201) {
         const data = await res.json()
         console.log("this is res.status 201")
         dispatch(makeSpot(data))
+        return data
     }
 }
 
-export const updateSpot = (spot) => async (dispatch) => {
-    const res = await csrfFetch('/api/spots/:spotId', {
+export const editSpot = (spot) => async (dispatch) => {
+    console.log("inside editSpot thunk: ", spot)
+    const res = await csrfFetch(`/api/spots/${spot.id}`, {
         "method": "PUT",
         "headers": { 'Content-Type': 'application/json' },
         "body": JSON.stringify(spot)
@@ -74,15 +77,18 @@ export const updateSpot = (spot) => async (dispatch) => {
     if (res.status === 404) {
         const data = await res.json()
         console.log("you are in res.status 404: ", data)
+        return data
     }
     if (res.status === 400) {
         const data = await res.json()
         console.log("you are in res.status 400: ", data)
+        return data
     }
     if (res.status === 200) {
         const data = await res.json()
         console.log("this is res.status 200")
         dispatch(makeSpot(data))
+        return data
     }
 }
 
