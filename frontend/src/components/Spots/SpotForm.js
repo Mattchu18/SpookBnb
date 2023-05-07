@@ -9,6 +9,8 @@ const SpotForm = ({ spot, formType }) => {
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
+    const [lat, setLat] = useState(1)
+    const [lng, setLng] = useState(1)
     const [country, setCountry] = useState("")
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -26,6 +28,8 @@ const SpotForm = ({ spot, formType }) => {
             address,
             city,
             state,
+            lat,
+            lng,
             country,
             name,
             description,
@@ -86,6 +90,26 @@ const SpotForm = ({ spot, formType }) => {
                         placeholder='State'
                     />
                 </label>
+                {/* <div>
+                    <label>
+                        Latitude
+                        <input
+                        type="text"
+                        value={lat}
+                        onChange={(e) => setLat(e.target.value)}
+                        placeholder='Latitude'
+                        />
+                    </label>
+                    <label>
+                        Longitude
+                        <input
+                        type="text"
+                        value={lng}
+                        onChange={(e) => setLng(e.target.value)}
+                        placeholder='Longitude'
+                        />
+                    </label>
+                </div> */}
             </div>
             <div>
                 <h3>Describe you place to guests</h3>
