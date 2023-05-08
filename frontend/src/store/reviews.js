@@ -29,11 +29,11 @@ export const getAllReviews = (spotId) => async (dispatch) => {
 
 }
 
-export const createReview = (review) => async (dispatch) => {
-    const res = await csrfFetch(`/api/spots/:spotId/reviews`, { //string interpolate
+export const createReview = (spotId, reviews) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}/reviews`, { //string interpolate
         "method": "POST",
         "headers": { 'Content-Type': 'application/json' },
-        "body": JSON.stringify(review)
+        "body": JSON.stringify(reviews)
     })
 
     if (res.ok) {
@@ -56,6 +56,20 @@ const reviewsReducer = (state = initialState, action) => {
                     {}
                 )
             };
+        case UPSERT_REVIEW:
+            return {
+                ...state,
+                allReviews: {
+                    ...state.allReviews,
+                    [action.review.id]: action.review
+                },
+                currentUserReviews: { //since the user is the only one able to upsert
+                    //we need to deep copy and overriding the keys of the properties
+                    ...state.currentUserReviews,
+                    [action.review.id]: action.review
+                }
+            }
+            return
         default:
             return state;
 

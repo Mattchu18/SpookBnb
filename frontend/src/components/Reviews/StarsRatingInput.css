@@ -1,0 +1,12 @@
+.stars-input {
+    display: flex;
+    margin-right: 4px;
+  }
+
+  .stars-input .filled {
+    color: rgb(231, 47, 78);
+  }
+
+  .stars-input .empty {
+    color: burlywood;
+  }

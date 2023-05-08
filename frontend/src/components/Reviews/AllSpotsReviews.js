@@ -14,6 +14,8 @@ const AllSpotsReviews = ({ spotId }) => {
 
     }, [dispatch, spotId])
 
+    if (!reviews) return null
+
     return (
         <>
             <div>
@@ -22,7 +24,7 @@ const AllSpotsReviews = ({ spotId }) => {
                     <li>spotId: {review.spotId} </li>
                     <li>stars: {review.stars} </li>
                     <li>review: {review.review} </li>
-                    <li>UserId: {review.User.id} , User: {review.User.firstName}  </li>
+                    {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
                 </ul>
                 ))}
             </div>

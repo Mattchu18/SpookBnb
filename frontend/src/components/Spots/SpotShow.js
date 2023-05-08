@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AllSpotsReviews from "../Reviews/AllSpotsReviews";
+import CreateReviewForm from "../Reviews/CreateReviewForm"
 
 
 const SpotShow = () => {
@@ -24,6 +25,7 @@ const SpotShow = () => {
         <>
         <h2>Spot Name: {spot.name}</h2>
         <h3>Spot Address: {spot.address}</h3>
+        <CreateReviewForm spotId={spotId}/>
         <AllSpotsReviews spotId={spotId}/>
         </>
     )
