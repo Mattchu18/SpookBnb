@@ -7,10 +7,8 @@ import SpotIndexItem from "../Spots/SpotIndexItem"
 const CurrentSpots = () => {
     const dispatch = useDispatch();
     //get our spots
-    const spots = useSelector((state) => Object.values(state.spots.allSpots));
-
-
-
+    const spotsObj = useSelector((state) => state.spots.allSpots)
+    const spots = Object.values(spotsObj);
     console.log("inside currentSpots ===>", spots)
 
 
@@ -21,15 +19,15 @@ const CurrentSpots = () => {
     return (
         <>
             {spots.map(spot => (
-                <>
+                <div key ={spot.id}>
                     <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
                     <p>{spot.id}</p>
                     <p>{spot.address}</p>
                     <SpotIndexItem
                         spot={spot}
-                        key={spot.id}
+
                     />
-                </>
+                </div>
             ))}
         </>
     )

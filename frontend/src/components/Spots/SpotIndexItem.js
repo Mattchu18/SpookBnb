@@ -16,7 +16,6 @@ const SpotIndexItem = ({spot}) => {
 
     )
 
-
 }
 
 export default SpotIndexItem;

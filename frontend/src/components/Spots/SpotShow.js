@@ -2,12 +2,14 @@ import { getOneSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import AllSpotsReviews from "../Reviews/AllSpotsReviews";
+
 
 const SpotShow = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     console.log("spotId: ", spotId)
-    //we dont need Object.values bc we are getting allSpots, but getting the one with spotId as the key
+    //we dont need Object.values bc we are getting the allSpots key from our state shape, but getting the one with spotId as the key
     const spot = useSelector((state) => state.spots.allSpots[spotId])
 
     console.log("inside SpotShow: ", spot)
@@ -20,8 +22,9 @@ const SpotShow = () => {
 
     return (
         <>
-        <h2>{spot.name}</h2>
-        <p>{spot.address}</p>
+        <h2>Spot Name: {spot.name}</h2>
+        <h3>Spot Address: {spot.address}</h3>
+        <AllSpotsReviews spotId={spotId}/>
         </>
     )
 }
