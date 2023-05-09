@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { getAllSpots } from "../../store/spots";
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const SpotsIndex = () => {
     const dispatch = useDispatch();
@@ -13,13 +14,14 @@ const SpotsIndex = () => {
         dispatch(getAllSpots())
     }, [dispatch])
 
+    if(!spots) return null;
     return (
         <>
             <ul>
                 {spots.map((spot) => (
-
-                    <div>
+                    <div key={spot.id}>
                         <img src={spot.previewImage} />
+                        <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
                         {spot.city}, {spot.state}
                     </div>
                 ))}

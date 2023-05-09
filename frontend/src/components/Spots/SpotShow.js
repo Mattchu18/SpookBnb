@@ -13,18 +13,22 @@ const SpotShow = () => {
     //we dont need Object.values bc we are getting the allSpots key from our state shape, but getting the one with spotId as the key
     const spot = useSelector((state) => state.spots.allSpots[spotId])
 
-    console.log("inside SpotShow: ", spot)
-
     useEffect(() => {
         dispatch(getOneSpot(spotId))
     }, [dispatch, spotId])
 
-    if (!spot) return null;
+    //this console.log for spot.SpotImages returns undefined and crashes
+    // console.log("inside SpotShow: ", spot.SpotImages)
+
+
+    if (!spot) return (null);
+    if(!spot.SpotImages) return null;
 
     return (
         <>
-        <h2>Spot Name: {spot.name}</h2>
-        <h3>Spot Address: {spot.address}</h3>
+        <h2>{spot.name}</h2>
+        <p>{spot.city}, {spot.state}, {spot.country}</p>
+        {spot.SpotImages.map(images => (<img src={`${images.url}`}/>))}
         <CreateReviewForm spotId={spotId}/>
         <AllSpotsReviews spotId={spotId}/>
         </>
