@@ -1,15 +1,16 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createReview } from '../../store/reviews';
 import StarsRatingInput from './StarsRatingInput';
+import { useModal } from '../../context/Modal'
+
 
 const ReviewForm = ({ spotId, reviews, formType }) => {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [review, setReview] = useState("");
     const [stars, setStars] = useState(1);
     const [validationErrors, setValidationErrors] = useState("");
+    const {closeModal} = useModal(); // we are pulling our closeModal function from our custom context
 
     reviews = {
         ...reviews,
@@ -17,14 +18,13 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
         stars
     }
 
-
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (formType === "Create Review") {
-            dispatch(createReview(spotId, reviews))
-            // history.push("/") //closeModal
+
+            return dispatch(createReview(spotId, reviews))
+            .then(closeModal)
         }
 
     }
