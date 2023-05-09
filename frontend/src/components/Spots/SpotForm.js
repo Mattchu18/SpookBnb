@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { createSpot, editSpot } from '../../store/spots';
+import { createSpot, editSpot, createImage } from '../../store/spots';
 
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
@@ -15,14 +15,22 @@ const SpotForm = ({ spot, formType }) => {
     const [name, setName] = useState(spot?.name)
     const [description, setDescription] = useState(spot?.description)
     const [price, setPrice] = useState(spot?.price)
-    const [previewImage, setPreviewImage] = useState(spot?.previewImage) //might need to be boolean?...
-    const [imageUrl, setImageURL] = useState(spot?.imageUrl)
+   // rename previewImage to preview (boolean)
+    const [preview, setPreview] = useState(spot?.preview) //might need to be boolean?...
+    // rename imageUrl to url
+    const [url, setUrl] = useState(spot?.url)
     const [vaidationErrors, setValidationErrors] = useState("")
+    //make new state for [preview, setPreview] = useState(true)
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        //add preview
+        //add url
+        //make 1st image input placeholder for preview image
+        //make new state for [preview, setPreview] = useState(true)
 
+        //make new inputs for url
         spot = {
             ...spot,
             address,
@@ -34,20 +42,25 @@ const SpotForm = ({ spot, formType }) => {
             name,
             description,
             price,
-            previewImage,
-            imageUrl
+            preview,
+            url
         }
 
-        if(formType === "Create Spot"){
+        if (formType === "Create Spot") {
             dispatch(createSpot(spot))
+            // dispatch(createImage(spot))
             history.push("/")
         }
-        if(formType === "Edit Spot"){
+        if (formType === "Edit Spot") {
             dispatch(editSpot(spot))
             history.push("/")
         }
     }
 
+    const setPreviewImageAndUrl = (e) => {
+        setUrl(e.target.value)
+        setPreview(true)
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -158,36 +171,38 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Liven up your spot with photos</h3>
                 <label>
                     Submit a link to at least one photo to publish your spot.
+                        {/* this first onChange will always setPreview(true) AND url */}
                     <input
                         type="text"
-                        value={previewImage} //might need refactoring... boolean?
-                        onChange={(e) => setPreviewImage(e.target.value)}
+                        value={url} //might need refactoring... boolean?
+                        onChange={(e) =>
+                            setPreviewImageAndUrl(e)}
                         placeholder='Preview Image URL'
                     />
-                    <input
+                    {/* <input
                         type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageURL(e.target.value)}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageURL(e.target.value)}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageURL(e.target.value)}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageURL(e.target.value)}
+                        value={url}
+                        onChange={(e) => setUrl(e.target.value)}
                         placeholder='Image URL'
-                    />
+                    /> */}
                 </label>
                 <button type="submit">Create Spot</button>
             </div>

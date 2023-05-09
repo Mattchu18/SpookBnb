@@ -15,6 +15,8 @@ const SpotsIndex = () => {
     }, [dispatch])
 
     if(!spots) return null;
+    // if(!spots.forEach(spot => ((spot.previewImage))))
+
     return (
         <>
             <ul>
