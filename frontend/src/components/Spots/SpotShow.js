@@ -18,13 +18,11 @@ const SpotShow = () => {
     }, [dispatch, spotId])
 
 
+
     if (!spot) return (null);
     if (!spot.SpotImages) return null;
-    // if (!spot.Owner)  return null
-    //this console.log for spot.SpotImages returns undefined and crashes
-    console.log("inside SpotShow spot: ", spot.Owner.firstName)
 
-     const numOfReviews = () => {
+    const numOfReviews = () => {
         if (spot.numReviews > 1) {
             return (
                 <i
@@ -42,7 +40,14 @@ const SpotShow = () => {
                 </i>
             )
         }
+
     }
+
+    // if (!spot.Owner)  return null
+    //this console.log for spot.SpotImages returns undefined and crashes
+    console.log("inside SpotShow spot: ", spot.Owner.firstName)
+
+
 
 
     return (

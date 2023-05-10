@@ -31,8 +31,10 @@ const AllSpotsReviews = ({ spotId }) => {
 
                 {reviews.map(review => (<ul key={review.id}>
                     <li>spotId: {review.spotId} </li>
+                    <li>reviewer: {review.User.firstName}</li>
                     <li>stars: {review.stars} </li>
                     <li>review: {review.review} </li>
+                    <li>date: {review.createdAt}</li>
 
                     {sessionUser.id === review.userId && (
                         <OpenModalButton

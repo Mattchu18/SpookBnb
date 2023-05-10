@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createReview } from '../../store/reviews';
 import StarsRatingInput from './StarsRatingInput';
@@ -10,7 +10,7 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
     const [review, setReview] = useState("");
     const [stars, setStars] = useState(1);
     const [validationErrors, setValidationErrors] = useState("");
-    const {closeModal} = useModal(); // we are pulling our closeModal function from our custom context
+    const { closeModal } = useModal(); // we are pulling our closeModal function from our custom context
 
     reviews = {
         ...reviews,
@@ -18,13 +18,18 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
         stars
     }
 
+    // useEffect(() => {
+    //     console.log("useEffect in ReviewForm!!!")
+
+    // },[reviews])
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
         if (formType === "Create Review") {
 
             return dispatch(createReview(spotId, reviews))
-            .then(closeModal)
+                .then(closeModal)
         }
 
     }
@@ -47,7 +52,7 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
                 onChange={onChange}
                 stars={stars}
             />
-            <input type='submit'/>
+            <input type='submit' />
 
         </form>
 
