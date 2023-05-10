@@ -17,20 +17,50 @@ const SpotShow = () => {
         dispatch(getOneSpot(spotId))
     }, [dispatch, spotId])
 
-    //this console.log for spot.SpotImages returns undefined and crashes
-    // console.log("inside SpotShow: ", spot.SpotImages)
-
 
     if (!spot) return (null);
-    if(!spot.SpotImages) return null;
+    if (!spot.SpotImages) return null;
+    // if (!spot.Owner)  return null
+    //this console.log for spot.SpotImages returns undefined and crashes
+    console.log("inside SpotShow spot: ", spot.Owner.firstName)
+
+     const numOfReviews = () => {
+        if (spot.numReviews > 1) {
+            return (
+                <i
+                    class="fa fa-star"
+                    aria-hidden="true">
+                    {` ${spot.avgStarRating} - ${spot.numReviews} Reviews`}
+                </i>
+            )
+        } else {
+            return (
+                <i
+                    class="fa fa-star"
+                    aria-hidden="true">
+                    {` ${spot.avgStarRating} - ${spot.numReviews} Review`}
+                </i>
+            )
+        }
+    }
+
 
     return (
         <>
-        <h2>{spot.name}</h2>
-        <p>{spot.city}, {spot.state}, {spot.country}</p>
-        {spot.SpotImages.map(images => (<img src={`${images.url}`}/>))}
-        <CreateReviewForm spotId={spotId}/>
-        <AllSpotsReviews spotId={spotId}/>
+            <h2>{spot.name}</h2>
+            <p>{spot.city}, {spot.state}, {spot.country}</p>
+            {spot.SpotImages.map(images => (<img src={`${images.url}`} />))}
+            <div>
+                <h2>{`Hosted by spot ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <div>
+                    <h2>{`$${spot.price} night`}</h2>
+                    {numOfReviews()}
+                </div>
+                <hr />
+            </div>
+            <CreateReviewForm spotId={spotId} />
+            <AllSpotsReviews spotId={spotId} />
         </>
     )
 }

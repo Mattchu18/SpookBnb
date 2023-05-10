@@ -19,31 +19,31 @@ const StarsRatingInput = ({ stars, disabled, onChange }) => {
                     onMouseLeave={(e) => disabled === false ? setActiveStars(stars) : null}
                     className={(activeStars >= 1 ? 'filled' : 'empty')}
                     onClick={(e) => disabled === false ? onChange(1) : null}>
-                    <i className="fa fa-paw"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
                 <div onMouseEnter={(e) => disabled === false ? setActiveStars(2) : null}
                     onMouseLeave={(e) => disabled === false ? setActiveStars(stars) : null}
                     className={(activeStars >= 2 ? 'filled' : 'empty')}
                     onClick={() => disabled === false ? onChange(2) : null}>
-                    <i className="fa fa-paw"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
                 <div onMouseEnter={(e) => disabled === false ? setActiveStars(3) : null}
                     onMouseLeave={(e) => disabled === false ? setActiveStars(stars) : null}
                     className={(activeStars >= 3 ? 'filled' : 'empty')}
                     onClick={() => disabled === false ? onChange(3) : null}>
-                    <i className="fa fa-paw"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
                 <div onMouseEnter={(e) => disabled === false ? setActiveStars(4) : null}
                     onMouseLeave={(e) => disabled === false ? setActiveStars(stars) : null}
                     className={(activeStars >= 4 ? 'filled' : 'empty')}
                     onClick={() => disabled === false ? onChange(4) : null}>
-                    <i className="fa fa-paw"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
                 <div onMouseEnter={(e) => disabled === false ? setActiveStars(5) : null}
                     onMouseLeave={(e) => disabled === false ? setActiveStars(stars) : null}
                     className={(activeStars >= 5 ? 'filled' : 'empty')}
                     onClick={() => disabled === false ? onChange(5) : null}>
-                    <i className="fa fa-paw"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
             </div>
         </>
