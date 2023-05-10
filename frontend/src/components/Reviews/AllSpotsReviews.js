@@ -2,13 +2,14 @@ import { getAllReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ReviewDelete from "../Reviews/ReviewDelete";
+import OpenModalButton from "../OpenModalButton";
 
 const AllSpotsReviews = ({ spotId }) => {
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
-    // const sessionUser = useSelector((state) => state.reviews.user)
-    // console.log("sessionUser====>", sessionUser)
+    const sessionUser = useSelector((state) => state.session.user)
+    console.log("sessionUser====>", sessionUser)
     console.log("AllSpotsReviews===>", reviews)
 
     useEffect(() => {
@@ -32,7 +33,17 @@ const AllSpotsReviews = ({ spotId }) => {
                     <li>spotId: {review.spotId} </li>
                     <li>stars: {review.stars} </li>
                     <li>review: {review.review} </li>
-                    <ReviewDelete review={review.id} />
+
+                    {sessionUser.id === review.userId && (
+                        <OpenModalButton
+                            buttonText="Delete"
+                            modalComponent={<ReviewDelete
+                                review={review.id}
+                            />}
+                        />
+
+                    )}
+
                     {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
                 </ul>
                 ))}
