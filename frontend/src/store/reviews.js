@@ -48,14 +48,14 @@ export const createReview = (spotId, reviews) => async (dispatch) => {
     }
 }
 
-export const deleteReview = (review) => async (dispatch) => {
-    console.log("inside deleteReview===>", review)
-    const res = await csrfFetch(`/api/reviews/${review.id}`,
+export const deleteReview = (reviewId) => async (dispatch) => {
+    console.log("inside deleteReview===>", reviewId)
+    const res = await csrfFetch(`/api/reviews/${reviewId}`,
         {
             "method": "DELETE"
         })
     if (res.ok) {
-        dispatch(delReview(review.id))
+        dispatch(delReview(reviewId))
     }
 
 }
@@ -66,13 +66,29 @@ const initialState = { allReviews: {}, currentUserReviews: {} };
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_REVIEWS:
-            return {
+            console.log("GET_ALL_REVIEWS action ===> ", action.reviews)
+
+            const reviewsState = {
                 ...state,
-                allReviews: action.reviews.reduce(
-                    (acc, review) => ({ ...acc, [review.id]: review }),
-                    {}
-                )
-            };
+                allReviews: { ...state.allReviews }
+            }
+            action.reviews.forEach(review => {
+                reviewsState.allReviews[review.id] = review
+            })
+            return reviewsState;
+
+        // }
+        // {
+        //     ...state,
+        //     allReviews: action.reviews.reduce(
+        //         (acc, review) => ({ ...acc, [review.id]: review }),
+        //         {}
+        //     ),
+        //     currentUserReviews: action.reviews.reduce(
+        //         (acc, review) => ({ ...acc, [review.id]: review }),
+        //         {}
+        //     )
+        // };
         case UPSERT_REVIEW:
             return {
                 ...state,
@@ -87,7 +103,13 @@ const reviewsReducer = (state = initialState, action) => {
                 }
             }
         case DEL_REVIEW:
-            const newState = { ...state, ...state.allReviews[action.reviewId], ...state.currentUserReviews[action.reviewId] }
+            // const newState = { ...state, ...state.allReviews[action.reviewId], ...state.currentUserReviews[action.reviewId] }
+            const newState = {
+                ...state,
+                ...state.allReviews[action.reviewId],
+                currentUserReviews: { ...state.currentUserReviews }
+            }
+
             delete newState.currentUserReviews[action.reviewId]
             delete newState.allReviews[action.reviewId]
             return newState

@@ -12,24 +12,64 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         spotId: '1',
-        url: 'www.imageforspotId1.com',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
         preview: 'true',
       },
       {
         spotId: '2',
-        url: 'www.imageforspotId2.com',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '2',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '2',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'true',
+      },      {
+        spotId: '2',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '2',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '3',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
         preview: 'true',
       },
       {
         spotId: '3',
-        url: 'www.imageforspotId3.com',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '3',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '4',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
         preview: 'true',
       },
       {
         spotId: '4',
-        url: 'www.imageforspotId4.com',
-        preview: 'true',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
+      },
+      {
+        spotId: '4',
+        url: 'https://astrogram.s3.us-east-2.amazonaws.com/070ecc196dcf48d8a77c10b60f866662.jpg',
+        preview: 'false',
       }
+
     ], {});
   },
 
@@ -37,7 +77,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: ['1','2'] }
+      spotId: { [Op.in]: ['1','2', '3', '4'] }
     }, {});
   }
 };

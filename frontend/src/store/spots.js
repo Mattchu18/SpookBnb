@@ -94,11 +94,11 @@ export const createImage = (spotId, image) => async (dispatch) => {
     console.log("createimage spotId====>: ", spotId)
     console.log("createimage image====>: ", image)
 
-    const res = await csrfFetch(`api/spots/${spotId}/images`, {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         "method": "POST",
         "headers": { 'Content-Type': 'application/json' },
         "body": JSON.stringify({
-            url: image.url1,
+            url: image.url,
             preview: image.preview
         })
         //pass in spot.url and spot.preview ??
@@ -234,7 +234,12 @@ const spotsReducer = (state = initialState, action) => {
                 )
             }
         case DEL_SPOT:
-            const newState = { ...state, ...state.allSpots[action.spotId], ...state.currentUserSpots[action.spotId] };
+            const newState = {
+                ...state,
+                ...state.allSpots[action.spotId],
+                ...state.currentUserSpots[action.spotId]
+            };
+
             delete newState.currentUserSpots[action.spotId]
             delete newState.allSpots[action.spotId]
             return newState;

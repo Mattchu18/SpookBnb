@@ -12,44 +12,44 @@ module.exports = {
     return queryInterface.bulkInsert(options, [
       {
         ownerId: '1',
-        address: '1 Spot User Way',
-        city: 'Test City',
+        address: '1 Spot Way',
+        city: 'Anaheim',
         state: 'CA',
         country: 'USA',
         lat: '1.2345',
         lng: '1.2345',
-        name: 'Beautiful spot near Test City!',
+        name: 'Beautiful spot near LosAngeles!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
         price: '10'
       },
       {
         ownerId: '2',
-        address: '2 Spot User Way',
-        city: 'Test City',
+        address: '2 Spot Way',
+        city: 'San Francisco ',
         state: 'CA',
         country: 'USA',
         lat: '11.2345',
         lng: '5.2345',
-        name: 'Beautiful spot near Test City!',
+        name: 'Beautiful spot near CUPERTINO!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
         price: '200'
       },
       {
         ownerId: '3',
-        address: '3 Spot User Way',
-        city: 'Test City',
+        address: '3 Spot Way',
+        city: 'San Francisco',
         state: 'CA',
         country: 'USA',
         lat: '11.2345',
         lng: '13.2345',
-        name: 'Beautiful spot near Test City!',
+        name: 'Beautiful spot near the BAY AREA!',
         description: 'The most beautifulest spot that has more beautiful spots around.',
         price: '500'
       },
       {
         ownerId: '4',
-        address: '4 Spot User Way',
-        city: 'Test City',
+        address: '4 Spot Way',
+        city: 'San Mateo',
         state: 'CA',
         country: 'USA',
         lat: '11.2345',
@@ -65,7 +65,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      address: { [Op.in]: ['1234 Test Way','54321 Test Way'] }
+      address: { [Op.in]: ['1 Spot Way','2 Spot Way', '3 Spot Way', '4 Spot Way'] }
     }, {});
   }
 };

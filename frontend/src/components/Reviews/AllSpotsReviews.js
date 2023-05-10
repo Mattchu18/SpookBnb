@@ -7,8 +7,8 @@ const AllSpotsReviews = ({ spotId }) => {
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
-    const sessionUser = useSelector((state) => state.session.user)
-    console.log("sessionUser====>", sessionUser)
+    // const sessionUser = useSelector((state) => state.reviews.user)
+    // console.log("sessionUser====>", sessionUser)
     console.log("AllSpotsReviews===>", reviews)
 
     useEffect(() => {
@@ -19,21 +19,20 @@ const AllSpotsReviews = ({ spotId }) => {
     if (!reviews) return null
     console.log("AllSpotsReviews===>", reviews)
 
-    const [userReview] = reviews.filter(review => review.userId === sessionUser.id)
-    console.log("userReview===>", userReview)
+    // const [userReview] = reviews.filter(review => review.userId === sessionUser.id)
+    // console.log("userReview===>", userReview)
 
-    if (!userReview) return null
+    // if (!userReview) return null
 
     return (
         <>
             <div>
 
-
-                    <ReviewDelete review={userReview} />
                 {reviews.map(review => (<ul key={review.id}>
                     <li>spotId: {review.spotId} </li>
                     <li>stars: {review.stars} </li>
                     <li>review: {review.review} </li>
+                    <ReviewDelete review={review.id} />
                     {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
                 </ul>
                 ))}

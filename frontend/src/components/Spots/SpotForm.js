@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, editSpot, createImage } from '../../store/spots';
 
 const SpotForm = ({ spot, formType }) => {
@@ -17,11 +17,11 @@ const SpotForm = ({ spot, formType }) => {
     const [price, setPrice] = useState(spot?.price)
     // rename previewImage to preview (boolean)
 
-    const [url1, setUrl1] = useState(spot?.SpotImages[0]?.url);
-    const [url2, setUrl2] = useState(spot?.SpotImages[1]?.url);
-    const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url);
-    const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url);
-    const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url);
+    const [url1, setUrl1] = useState(spot?.SpotImages[0]?.url1);
+    const [url2, setUrl2] = useState(spot?.SpotImages[1]?.url2);
+    const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url3);
+    const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url4);
+    const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url5);
     const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
     const [vaidationErrors, setValidationErrors] = useState("")
     // const [preview, setPreview] = useState(true)
@@ -46,14 +46,27 @@ const SpotForm = ({ spot, formType }) => {
             name,
             description,
             price,
-            SpotImages: [{ preview, url1 }, { url2 }, { url3 }, { url4 }, { url5 }]
-
+            SpotImages: [
+                { preview: true, url: url1 },
+                { preview: false, url: url2 },
+                { preview: false, url: url3 },
+                { preview: false, url: url4 },
+                { preview: false, url: url5 }
+            ]
         }
 
+
+
         if (formType === "Create Spot") {
-            dispatch(createSpot(spot))
-            // dispatch(createImage(spot))
-            history.push("/")
+            const data = await dispatch(createSpot(spot))
+            // dispatch(createSpot(spot))
+            // if(data.validationErrors) {
+            //     return setValidationErrors()
+            // }
+
+            // console.log("after dispatch create a spot====>", data)
+
+            await history.push(`/spots/${data.id}`) //need push to createimage
         }
         if (formType === "Edit Spot") {
             dispatch(editSpot(spot))
@@ -61,10 +74,10 @@ const SpotForm = ({ spot, formType }) => {
         }
     }
 
-    const setPreviewImageAndUrl = (e) => {
-        setUrl1(e.target.value)
-        setPreview(true)
-    }
+    // const setPreviewImageAndUrl = (e) => {
+    //     setUrl1(e.target.value)
+    //     setPreview(true)
+    // }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -179,33 +192,33 @@ const SpotForm = ({ spot, formType }) => {
                     <input
                         type="text"
                         value={url1} //might need refactoring... boolean?
-                        onChange={(e) =>setPreviewImageAndUrl(e)}
+                        onChange={(e) => setUrl1(e.target.value)}
                         placeholder='Preview Image URL'
                     />
-                    {/* <input
+                    <input
                         type="text"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={url2}
+                        onChange={(e) => setUrl2(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={url3}
+                        onChange={(e) => setUrl3(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={url4}
+                        onChange={(e) => setUrl4(e.target.value)}
                         placeholder='Image URL'
                     />
                     <input
                         type="text"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
+                        value={url5}
+                        onChange={(e) => setUrl5(e.target.value)}
                         placeholder='Image URL'
-                    /> */}
+                    />
                 </label>
                 <button type="submit">Create Spot</button>
             </div>
