@@ -15,10 +15,14 @@ const SpotForm = ({ spot, formType }) => {
     const [name, setName] = useState(spot?.name)
     const [description, setDescription] = useState(spot?.description)
     const [price, setPrice] = useState(spot?.price)
-   // rename previewImage to preview (boolean)
-    const [preview, setPreview] = useState(spot?.preview) //might need to be boolean?...
-    // rename imageUrl to url
-    const [url, setUrl] = useState(spot?.url)
+    // rename previewImage to preview (boolean)
+
+    const [url1, setUrl1] = useState(spot?.SpotImages[0]?.url);
+    const [url2, setUrl2] = useState(spot?.SpotImages[1]?.url);
+    const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url);
+    const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url);
+    const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url);
+    const [previewIndex, setPreviewIndex] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
     const [vaidationErrors, setValidationErrors] = useState("")
     //make new state for [preview, setPreview] = useState(true)
 
@@ -42,8 +46,8 @@ const SpotForm = ({ spot, formType }) => {
             name,
             description,
             price,
-            preview,
-            url
+            SpotImages: [{ preview, url }, { preview, url }, { preview, url }, { preview, url }, { preview, url }]
+
         }
 
         if (formType === "Create Spot") {
@@ -171,7 +175,7 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Liven up your spot with photos</h3>
                 <label>
                     Submit a link to at least one photo to publish your spot.
-                        {/* this first onChange will always setPreview(true) AND url */}
+                    {/* this first onChange will always setPreview(true) AND url */}
                     <input
                         type="text"
                         value={url} //might need refactoring... boolean?

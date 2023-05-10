@@ -80,22 +80,25 @@ export const createSpot = (spot) => async (dispatch) => {
     if (res.status === 201) {
         const data = await res.json()
         dispatch(makeSpot(data))
-        dispatch(createImage(data, spot))
+        for(const image of spot.SpotImages){
+            dispatch(createImage(data.id, image))
+        }
+
         console.log("this is res.status 201's data===>", data)
         return data
     }
 }
 
-
-export const createImage = (data, spot) => async (dispatch) => {
+//spotId , image
+export const createImage = (spotId, image) => async (dispatch) => {
     console.log("createimage====>: ", spot)
 
-    const res = await csrfFetch(`api/spots/${data.id}/images`, {
+    const res = await csrfFetch(`api/spots/${spotId}/images`, {
         "method": "POST",
         "headers": { 'Content-Type': 'application/json' },
         "body": JSON.stringify({
-            url: spot.url,
-            preview: spot.preview
+            url: image.url,
+            preview: image.preview
         })
         //pass in spot.url and spot.preview ??
     })
