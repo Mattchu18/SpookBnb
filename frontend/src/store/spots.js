@@ -91,13 +91,14 @@ export const createSpot = (spot) => async (dispatch) => {
 
 //spotId , image
 export const createImage = (spotId, image) => async (dispatch) => {
-    console.log("createimage====>: ", spot)
+    console.log("createimage spotId====>: ", spotId)
+    console.log("createimage image====>: ", image)
 
     const res = await csrfFetch(`api/spots/${spotId}/images`, {
         "method": "POST",
         "headers": { 'Content-Type': 'application/json' },
         "body": JSON.stringify({
-            url: image.url,
+            url: image.url1,
             preview: image.preview
         })
         //pass in spot.url and spot.preview ??

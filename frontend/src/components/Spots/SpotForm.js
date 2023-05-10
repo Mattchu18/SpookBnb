@@ -22,9 +22,9 @@ const SpotForm = ({ spot, formType }) => {
     const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url);
     const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url);
     const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url);
-    const [previewIndex, setPreviewIndex] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
+    const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
     const [vaidationErrors, setValidationErrors] = useState("")
-    //make new state for [preview, setPreview] = useState(true)
+    // const [preview, setPreview] = useState(true)
 
 
     const handleSubmit = async (e) => {
@@ -46,7 +46,7 @@ const SpotForm = ({ spot, formType }) => {
             name,
             description,
             price,
-            SpotImages: [{ preview, url }, { preview, url }, { preview, url }, { preview, url }, { preview, url }]
+            SpotImages: [{ preview, url1 }, { url2 }, { url3 }, { url4 }, { url5 }]
 
         }
 
@@ -62,7 +62,7 @@ const SpotForm = ({ spot, formType }) => {
     }
 
     const setPreviewImageAndUrl = (e) => {
-        setUrl(e.target.value)
+        setUrl1(e.target.value)
         setPreview(true)
     }
 
@@ -178,9 +178,8 @@ const SpotForm = ({ spot, formType }) => {
                     {/* this first onChange will always setPreview(true) AND url */}
                     <input
                         type="text"
-                        value={url} //might need refactoring... boolean?
-                        onChange={(e) =>
-                            setPreviewImageAndUrl(e)}
+                        value={url1} //might need refactoring... boolean?
+                        onChange={(e) =>setPreviewImageAndUrl(e)}
                         placeholder='Preview Image URL'
                     />
                     {/* <input
