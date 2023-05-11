@@ -52,6 +52,7 @@ const AllSpotsReviews = ({ spotId }) => {
                                 buttonText="Delete"
                                 modalComponent={<ReviewDelete
                                     review={review.id}
+                                    spotId={spotId}
                                 />}
                             />
 

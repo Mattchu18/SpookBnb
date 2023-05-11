@@ -3,7 +3,7 @@ import { deleteReview } from "../../store/reviews";
 import { useModal } from '../../context/Modal'
 import { getOneSpot } from "../../store/spots";
 
-const ReviewDelete = ({review}) => {
+const ReviewDelete = ({review, spotId}) => {
     const dispatch = useDispatch();
     const {closeModal} = useModal();
 console.log("ReviewDelete ===> ", review)
@@ -12,8 +12,8 @@ console.log("ReviewDelete ===> ", review)
         e.preventDefault()
 
         await dispatch(deleteReview(review))
-        dispatch(getOneSpot(4)) //not redirecting
         .then(closeModal)
+        dispatch(getOneSpot(spotId))
     }
 
     return(
