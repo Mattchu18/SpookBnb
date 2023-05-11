@@ -37,21 +37,26 @@ const CurrentSpots = () => {
                         <p>spot id: {spot.id}</p>
                         <div>
                             <p>{spot.city}, {spot.state}</p>
-
+                            <i
+                                class="fa fa-star"
+                                aria-hidden="true">
+                                {` ${spot.avgRating}`}
+                            </i>
                         </div>
+
+                        <Link to={`/spots/${spot.id}/edit`}>
+                            <button>
+                                Update
+                            </button>
+                        </Link>
                         <OpenModalButton
-                            buttonText="Delete Spot"
+                            buttonText="Delete"
                             modalComponent={
                                 <DeleteSpot
                                     spot={spot}
                                 />
                             }
                         />
-                        <Link to={`/spots/${spot.id}/edit`}>
-                            <button>
-                                Update
-                            </button>
-                        </Link>
 
                     </div>
                 ))}

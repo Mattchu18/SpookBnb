@@ -5,10 +5,12 @@ import { useModal } from '../../context/Modal'
 const ReviewDelete = ({review}) => {
     const dispatch = useDispatch();
     const {closeModal} = useModal();
+
     const handleDelete = (e) => {
         e.preventDefault()
 
         dispatch(deleteReview(review))
+        .then(closeModal)
     }
 
     return(
