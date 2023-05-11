@@ -19,11 +19,11 @@ const SpotForm = ({ spot, formType }) => {
     // rename previewImage to preview (boolean)
 
     console.log("Inside SpotForm ====> ", spot )
-    const [url1, setUrl1] = useState(spot?.SpotImages[0]?.url1);
-    const [url2, setUrl2] = useState(spot?.SpotImages[1]?.url2);
-    const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url3);
-    const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url4);
-    const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url5);
+    const [url1, setUrl1] = useState(spot?.SpotImages?.[0]?.url ?? '');
+    const [url2, setUrl2] = useState(spot?.SpotImages?.[1]?.url ?? '');
+    const [url3, setUrl3] = useState(spot?.SpotImages?.[2]?.url ?? '');
+    const [url4, setUrl4] = useState(spot?.SpotImages?.[3]?.url ?? '');
+    const [url5, setUrl5] = useState(spot?.SpotImages?.[4]?.url ?? '');
     // const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
     const [vaidationErrors, setValidationErrors] = useState("")
     // const [preview, setPreview] = useState(true)

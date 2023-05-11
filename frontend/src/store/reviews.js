@@ -106,7 +106,7 @@ const reviewsReducer = (state = initialState, action) => {
             // const newState = { ...state, ...state.allReviews[action.reviewId], ...state.currentUserReviews[action.reviewId] }
             const newState = {
                 ...state,
-                ...state.allReviews[action.reviewId],
+                allReviews: { ...state.allReviews },
                 currentUserReviews: { ...state.currentUserReviews }
             }
 
