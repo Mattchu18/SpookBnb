@@ -12,7 +12,7 @@ console.log("ReviewDelete ===> ", review)
         e.preventDefault()
 
         await dispatch(deleteReview(review))
-        dispatch(getOneSpot(review.spotId)) //not redirecting
+        dispatch(getOneSpot(4)) //not redirecting
         .then(closeModal)
     }
 

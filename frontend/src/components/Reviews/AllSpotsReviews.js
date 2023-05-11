@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import ReviewDelete from "../Reviews/ReviewDelete";
 import OpenModalButton from "../OpenModalButton";
+import CreateReviewForm from "../Reviews/CreateReviewForm"
 
 const AllSpotsReviews = ({ spotId }) => {
     const dispatch = useDispatch();
@@ -29,6 +30,13 @@ const AllSpotsReviews = ({ spotId }) => {
     return (
         <>
             <div>
+            {/* {reviews.map(review => {(
+                sessionUser.id === review.userId && (
+                    <CreateReviewForm
+                    spotId={spotId} />
+                )
+
+                )})} */}
 
                 {reviews.map(review => (
                     <ul key={review.id}>

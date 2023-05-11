@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { createReview } from '../../store/reviews';
 import StarsRatingInput from './StarsRatingInput';
 import { useModal } from '../../context/Modal'
+import { getOneSpot } from '../../store/spots';
 
 
 const ReviewForm = ({ spotId, reviews, formType }) => {
@@ -23,13 +24,14 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
 
     // },[reviews])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         if (formType === "Create Review") {
 
-            return dispatch(createReview(spotId, reviews))
+            await dispatch(createReview(spotId, reviews))
                 .then(closeModal)
+                dispatch(getOneSpot(spotId))
         }
 
     }
@@ -52,8 +54,7 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
                 onChange={onChange}
                 stars={stars}
             />
-            <input type='submit' />
-
+            <input type='submit'/>
         </form>
 
     )

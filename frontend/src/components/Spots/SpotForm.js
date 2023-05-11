@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, editSpot, createImage } from '../../store/spots';
@@ -14,19 +14,39 @@ const SpotForm = ({ spot, formType }) => {
     const [lng, setLng] = useState(spot?.lng ?? 1)
     const [country, setCountry] = useState(spot?.country)
     const [name, setName] = useState(spot?.name)
-    const [description, setDescription] = useState(spot?.description)
+    const [description, setDescription] = useState(spot?.description ?? "")
     const [price, setPrice] = useState(spot?.price)
     // rename previewImage to preview (boolean)
 
-    console.log("Inside SpotForm ====> ", spot )
+    console.log("Inside SpotForm ====> ", spot)
     const [url1, setUrl1] = useState(spot?.SpotImages?.[0]?.url ?? '');
     const [url2, setUrl2] = useState(spot?.SpotImages?.[1]?.url ?? '');
     const [url3, setUrl3] = useState(spot?.SpotImages?.[2]?.url ?? '');
     const [url4, setUrl4] = useState(spot?.SpotImages?.[3]?.url ?? '');
     const [url5, setUrl5] = useState(spot?.SpotImages?.[4]?.url ?? '');
     // const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
-    const [vaidationErrors, setValidationErrors] = useState("")
+    const [validationErrors, setValidationErrors] = useState("")
     // const [preview, setPreview] = useState(true)
+
+    useEffect((e) => {
+        let errors = {};
+        if (!country) errors.country = "Country is required"
+        if (!address) errors.address = "Address is required"
+        if (!city) errors.city = "City is required"
+        if (!state) errors.state = "State is required"
+        if (description.length < 30) errors.description = "Description needs a minimum of 30 characters"
+        if (!name) errors.name = "Name is required"
+        if (price >= 0) errors.price = "Price is required"
+        if (url1.length === 0
+            && (!url1.endsWith(".png")
+                || !url1.endsWith(".jpg")
+                || !url1.endsWith(".jpeg"))
+        ) errors.url1 = "Preview image is required"
+
+        setValidationErrors(errors)
+
+    }, [country, address, city, state, description, name, price, url1, url2, url3, url4, url5])
+
 
 
     const handleSubmit = async (e) => {
@@ -92,6 +112,7 @@ const SpotForm = ({ spot, formType }) => {
                 Guests will only get your exact address once they booked a reservation.
             </div>
             <div>
+                {validationErrors.country ? <p className="errors">{validationErrors.country}</p> : null}
                 <label>
                     Country
                     <input
@@ -103,6 +124,8 @@ const SpotForm = ({ spot, formType }) => {
                 </label>
 
             </div>
+            {validationErrors.address ? <p className="errors">{validationErrors.address}</p> : null}
+
             <label>
                 Street Address
                 <input
@@ -113,6 +136,8 @@ const SpotForm = ({ spot, formType }) => {
                 />
             </label>
             <div>
+                {validationErrors.city ? <p className="errors">{validationErrors.city}</p> : null}
+
                 <label>
                     City
                     <input
@@ -123,6 +148,8 @@ const SpotForm = ({ spot, formType }) => {
                     />
                 </label>
                 <span>, </span>
+                {validationErrors.state ? <p className="errors">{validationErrors.state}</p> : null}
+
                 <label>
                     State
                     <input
@@ -157,12 +184,14 @@ const SpotForm = ({ spot, formType }) => {
                 <h3>Describe you place to guests</h3>
                 <label>
                     Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
-                    <input
+                    <textarea
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder='Please write at least 30 characters'
                     />
+                    {validationErrors.description ? <p className="errors">{validationErrors.description}</p> : null}
+
                 </label>
             </div>
             <div>
@@ -175,6 +204,8 @@ const SpotForm = ({ spot, formType }) => {
                         onChange={(e) => setName(e.target.value)}
                         placeholder='Name of your spot'
                     />
+                    {validationErrors.name ? <p className="errors">{validationErrors.name}</p> : null}
+
                 </label>
             </div>
             <div>
@@ -182,11 +213,13 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     Competitive pricing can help your listing stnad out and rank higher in search results.
                     <input
-                        type="text"
+                        type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         placeholder='Price per night (USD)'
                     />
+                    {validationErrors.price ? <p className="errors">{validationErrors.price}</p> : null}
+
                 </label>
             </div>
             <div>
@@ -200,12 +233,16 @@ const SpotForm = ({ spot, formType }) => {
                         onChange={(e) => setUrl1(e.target.value)}
                         placeholder='Preview Image URL'
                     />
+                    {validationErrors.url1 ? <p className="errors">{validationErrors.url1}</p> : null}
+
                     <input
                         type="text"
                         value={url2}
                         onChange={(e) => setUrl2(e.target.value)}
                         placeholder='Image URL'
                     />
+                    {validationErrors.url2 ? <p className="errors">{validationErrors.url2}</p> : null}
+
                     <input
                         type="text"
                         value={url3}
