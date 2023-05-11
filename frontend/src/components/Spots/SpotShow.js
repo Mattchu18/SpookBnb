@@ -12,6 +12,7 @@ const SpotShow = () => {
     console.log("spotId: ", spotId)
     //we dont need Object.values bc we are getting the allSpots key from our state shape, but getting the one with spotId as the key
     const spot = useSelector((state) => state.spots.allSpots[spotId])
+    //check useselector for single spot instead
 
     useEffect(() => {
         dispatch(getOneSpot(spotId))

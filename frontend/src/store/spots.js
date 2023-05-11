@@ -81,11 +81,9 @@ export const createSpot = (spot, user) => async (dispatch) => {
     if (res.status === 201) {
         const data = await res.json()
         // need to mimic structure in API docs
-        data.Owner = user;
-        data.SpotImages = []; // we keep this empty in case we dont update any images
-        data.avgStarRating = 0;
-        data.numReviews = 0;
-        dispatch(createImage(data, data.SpotImages)) // we pass in an array of SpotImages
+        console.log("inside createSpot spot ===>", spot)
+
+        dispatch(createImage(data, spot.SpotImages)) // we pass in an array of SpotImages
         // for(const image of spot.SpotImages){
         //     dispatch(createImage(data.id, image))
         // }
@@ -115,7 +113,7 @@ export const createImage = (spot, imageArr) => async (dispatch) => {
         if (res.ok) {
             const data = await res.json()
             console.log("data inside createImage ===> ", data) //populate the array of SpotImages w/ our new images
-            spot.SpotImages.push(data)
+            // spot.SpotImages.push(data)
             // dispatch(makeSpot(data)) //replace this with new action creator
             // return data
             dispatch(loadOneSpot(spot))
@@ -246,6 +244,7 @@ const spotsReducer = (state = initialState, action) => {
                     {}
                 )
             }
+            //on click delete dispatch(getOneSpot)  so it will refresh the page
         case DEL_SPOT:
             const newState = {
                 ...state,
