@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getSpotCurrentUser } from "../../store/spots";
-import SpotIndexItem from "../Spots/SpotIndexItem"
+import DeleteSpot from "./DeleteSpot";
 
 const CurrentSpots = () => {
     const dispatch = useDispatch();
@@ -18,17 +18,32 @@ const CurrentSpots = () => {
 
     return (
         <>
-            {spots.map(spot => (
-                <div key ={spot.id}>
-                    <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
-                    <p>{spot.id}</p>
-                    <p>{spot.address}</p>
-                    <SpotIndexItem
-                        spot={spot}
+            <div>
+                <h2>Manage Your Spots</h2>
 
-                    />
-                </div>
-            ))}
+                <Link to={"/spots/new"}>
+                    <button>Create a New Spot</button>
+                </Link>
+
+            </div>
+            <div>
+                {spots.map(spot => (
+                    <div key={spot.id}>
+                        <Link to={`/spots/${spot.id}`}>{spot.name}</Link>
+                        <img src={spot.previewImage} />
+                        <p>spot id: {spot.id}</p>
+                        <div>
+                            <p>{spot.city}, {spot.state}</p>
+
+                        </div>
+                        <DeleteSpot
+                            spot={spot}
+                        />
+
+                    </div>
+                ))}
+            </div>
+
         </>
     )
 

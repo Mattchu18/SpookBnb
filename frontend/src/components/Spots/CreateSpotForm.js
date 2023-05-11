@@ -16,10 +16,13 @@ const CreateSpotForm = () => {
     // }
 
     return (
-        <SpotForm
-            // spot={spot}
-            formType="Create Spot"
-        />
+        <div>
+            <SpotForm
+                // spot={spot}
+                formType="Create Spot"
+            />
+
+        </div>
     )
 }
 

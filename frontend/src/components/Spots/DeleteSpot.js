@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { deleteSpot } from '../../store/spots';
 
-const SpotIndexItem = ({spot}) => {
+const DeleteSpot = ({spot}) => {
     const dispatch = useDispatch();
     const handleDelete = (e) => {
         e.preventDefault();
@@ -18,4 +18,4 @@ const SpotIndexItem = ({spot}) => {
 
 }
 
-export default SpotIndexItem;
+export default DeleteSpot;
