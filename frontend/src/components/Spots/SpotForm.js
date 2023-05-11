@@ -6,6 +6,7 @@ import { createSpot, editSpot, createImage } from '../../store/spots';
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const user = useSelector(state => state.session.user)
     const [address, setAddress] = useState(spot?.address);
     const [city, setCity] = useState(spot?.city)
     const [state, setState] = useState(spot?.state)
@@ -17,12 +18,13 @@ const SpotForm = ({ spot, formType }) => {
     const [price, setPrice] = useState(spot?.price)
     // rename previewImage to preview (boolean)
 
+    console.log("Inside SpotForm ====> ", spot )
     const [url1, setUrl1] = useState(spot?.SpotImages[0]?.url1);
     const [url2, setUrl2] = useState(spot?.SpotImages[1]?.url2);
     const [url3, setUrl3] = useState(spot?.SpotImages[2]?.url3);
     const [url4, setUrl4] = useState(spot?.SpotImages[3]?.url4);
     const [url5, setUrl5] = useState(spot?.SpotImages[4]?.url5);
-    const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
+    // const [preview, setPreview] = useState(spot?.SpotImages.findIndex(({ preview }) => preview) ?? 0);
     const [vaidationErrors, setValidationErrors] = useState("")
     // const [preview, setPreview] = useState(true)
 
@@ -34,8 +36,10 @@ const SpotForm = ({ spot, formType }) => {
         //make 1st image input placeholder for preview image
         //make new state for [preview, setPreview] = useState(true)
 
+
+        console.log("user====>", user)
         //make new inputs for url
-        spot = {
+        const newSpot = {
             ...spot,
             address,
             city,
@@ -58,19 +62,21 @@ const SpotForm = ({ spot, formType }) => {
 
 
         if (formType === "Create Spot") {
-            const data = await dispatch(createSpot(spot))
+            const data = await dispatch(createSpot(newSpot, user))
             // dispatch(createSpot(spot))
             // if(data.validationErrors) {
             //     return setValidationErrors()
             // }
 
-            // console.log("after dispatch create a spot====>", data)
+            console.log("after dispatch create a spot====>", data)
 
-            await history.push(`/spots/${data.id}`) //need push to createimage
+            history.push(`/spots/${data.id}`) //need push to createimage
         }
         if (formType === "Edit Spot") {
-            dispatch(editSpot(spot))
-            history.push("/")
+            const data = await dispatch(editSpot(newSpot))
+
+            history.push(`/spots/${data.id}`)
+
         }
     }
 
@@ -78,7 +84,6 @@ const SpotForm = ({ spot, formType }) => {
     //     setUrl1(e.target.value)
     //     setPreview(true)
     // }
-
     return (
         <form onSubmit={handleSubmit}>
             <h2>Spot Form Name</h2>

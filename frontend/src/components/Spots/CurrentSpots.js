@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getSpotCurrentUser } from "../../store/spots";
 import DeleteSpot from "./DeleteSpot";
+import SpotForm from "./SpotForm";
+import OpenModalButton from "../OpenModalButton";
+import EditSpotForm from "./EditSpotForm";
 
 const CurrentSpots = () => {
     const dispatch = useDispatch();
@@ -36,9 +39,19 @@ const CurrentSpots = () => {
                             <p>{spot.city}, {spot.state}</p>
 
                         </div>
-                        <DeleteSpot
-                            spot={spot}
+                        <OpenModalButton
+                            buttonText="Delete Spot"
+                            modalComponent={
+                                <DeleteSpot
+                                    spot={spot}
+                                />
+                            }
                         />
+                        <Link to={`/spots/${spot.id}/edit`}>
+                            <button>
+                                Update
+                            </button>
+                        </Link>
 
                     </div>
                 ))}

@@ -66,7 +66,7 @@ export const getOneSpot = (spotId) => async (dispatch) => {
     }
 }
 
-export const createSpot = (spot) => async (dispatch) => {
+export const createSpot = (spot, user) => async (dispatch) => {
     const res = await csrfFetch('/api/spots', {
         "method": "POST",
         "headers": { 'Content-Type': 'application/json' },
@@ -74,15 +74,22 @@ export const createSpot = (spot) => async (dispatch) => {
     })
     if (res.status === 400) { //doublecheck the res.status in backend -- might be diff status code
         const data = await res.json()
+
         console.log("you are in res.status 400: ", data) //change later to set any errors?
         return data
     }
     if (res.status === 201) {
         const data = await res.json()
-        dispatch(makeSpot(data))
-        for(const image of spot.SpotImages){
-            dispatch(createImage(data.id, image))
-        }
+        // need to mimic structure in API docs
+        data.Owner = user;
+        data.SpotImages = []; // we keep this empty in case we dont update any images
+        data.avgStarRating = 0;
+        data.numReviews = 0;
+        dispatch(createImage(data, data.SpotImages)) // we pass in an array of SpotImages
+        // for(const image of spot.SpotImages){
+        //     dispatch(createImage(data.id, image))
+        // }
+        //put the for loop inside the createImage instead
 
         console.log("this is res.status 201's data===>", data)
         return data
@@ -90,26 +97,31 @@ export const createSpot = (spot) => async (dispatch) => {
 }
 
 //spotId , image
-export const createImage = (spotId, image) => async (dispatch) => {
-    console.log("createimage spotId====>: ", spotId)
-    console.log("createimage image====>: ", image)
+export const createImage = (spot, imageArr) => async (dispatch) => {
+    console.log("createimage spot.id====>: ", spot.id)
+    console.log("createimage imageArr====>: ", imageArr)
 
-    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
-        "method": "POST",
-        "headers": { 'Content-Type': 'application/json' },
-        "body": JSON.stringify({
-            url: image.url,
-            preview: image.preview
+    for (let images of imageArr) {
+        const res = await csrfFetch(`/api/spots/${spot.id}/images`, {
+            "method": "POST",
+            "headers": { 'Content-Type': 'application/json' },
+            "body": JSON.stringify({
+                url: images.url,
+                preview: images.preview
+            })
+            //pass in spot.url and spot.preview ??
         })
-        //pass in spot.url and spot.preview ??
-    })
 
-    if (res.ok) {
-        const data = await res.json()
-        // dispatch(makeSpot(data)) //replace this with new action creator
-        dispatch(makeImage(data))
-        return data
+        if (res.ok) {
+            const data = await res.json()
+            console.log("data inside createImage ===> ", data) //populate the array of SpotImages w/ our new images
+            spot.SpotImages.push(data)
+            // dispatch(makeSpot(data)) //replace this with new action creator
+            // return data
+            dispatch(loadOneSpot(spot))
+        }
     }
+
 
 }
 
@@ -164,7 +176,7 @@ export const deleteSpot = (spot) => async (dispatch) => {
 
 }
 
-const initialState = { allSpots: {}, currentUserSpots: {} };
+const initialState = { allSpots: {},singleSpot:{}, currentUserSpots: {} };
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -190,7 +202,8 @@ const spotsReducer = (state = initialState, action) => {
                 allSpots: {
                     ...state.allSpots, //we getting all the spots
                     [action.spot.id]: action.spot   //and then pasting over it with the single spot
-                }
+                },
+                singleSpot: action.spot
             };
         case UPSERT_SPOT:
             console.log("inside spotsReducer DO_SPOT: ", action.spot)
