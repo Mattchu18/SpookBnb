@@ -5,7 +5,7 @@ import ReviewDelete from "../Reviews/ReviewDelete";
 import OpenModalButton from "../OpenModalButton";
 import CreateReviewForm from "../Reviews/CreateReviewForm"
 
-const AllSpotsReviews = ({ spotId }) => {
+const AllSpotsReviews = ({ spot, spotId }) => {
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.allReviews)
     const reviews = Object.values(reviewsObj)
@@ -26,22 +26,25 @@ const AllSpotsReviews = ({ spotId }) => {
     // if( reviews.forEach( review =>
     //     review?.User ?? null
     // ))
+    const match = reviews.find((review) =>
+        review.userId === sessionUser.id)
+
+    const ownerOfSpot = (spot.ownerId === sessionUser.id)
+
+    console.log("ownerOfSpot??====>", ownerOfSpot)
+    console.log("this is match!! =>>", match)
 
     return (
         <>
             <div>
-            {/* {reviews.map(review => {(
-                sessionUser.id === review.userId && (
-                    <CreateReviewForm
-                    spotId={spotId} />
-                )
-
-                )})} */}
+                {!(match || ownerOfSpot) && (
+                    <CreateReviewForm spotId={spotId} />
+                )}
 
                 {reviews.map(review => (
                     <ul key={review.id}>
                         <li>spotId: {review.spotId} </li>
-{/* below will break my page when I delete a review and try to create a new review */}
+                        {/* below will break my page when I delete a review and try to create a new review */}
                         {/* <li>reviewer: {review.User.firstName}</li> */}
                         <li>stars: {review.stars} </li>
                         <li>review: {review.review} </li>

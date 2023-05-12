@@ -65,8 +65,8 @@ const SpotShow = () => {
                 </div>
                 <hr />
             </div>
-            <CreateReviewForm spotId={spotId} />
-            <AllSpotsReviews spotId={spotId} />
+            {/* <CreateReviewForm spotId={spotId} /> */}
+            <AllSpotsReviews spot={spot} spotId={spotId} />
         </>
     )
 }
