@@ -1,0 +1,26 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    /* max-width: 1400px; */
+}
+
+div.spots-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 400px) ;
+    grid-template-rows: auto;
+    /* grid-auto-rows: max-content; */
+}
+
+div.spots-card-container {
+    width: 20rem;
+    height: 17rem;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    border-radius: 10px;
+    border: 1px solid;
+    overflow: hidden;
+    gap: 10px;
+
+}

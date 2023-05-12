@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const GET_ALL_REVIEWS = 'reviews/GET_ALL_REVIEWS';
 const UPSERT_REVIEW = 'reviews/UPSERT_REVIEW'
 const DEL_REVIEW = 'reviews/DEL_REVIEW'
+const CLEAR_REVIEWS = 'review/CLEAR_REVIEWS'
 
 const loadReviews = (reviews) => ({
     type: GET_ALL_REVIEWS,
@@ -17,6 +18,10 @@ const makeReview = (review) => ({
 const delReview = (reviewId) => ({
     type: DEL_REVIEW,
     reviewId
+})
+
+export const clearReviews = () => ({
+    type: CLEAR_REVIEWS
 })
 
 export const getAllReviews = (spotId) => async (dispatch) => {
@@ -65,17 +70,19 @@ const initialState = { allReviews: {}, currentUserReviews: {} };
 
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case GET_ALL_REVIEWS:
+        case GET_ALL_REVIEWS: {
             console.log("GET_ALL_REVIEWS action ===> ", action.reviews)
 
             const reviewsState = {
                 ...state,
-                allReviews: { ...state.allReviews }
-            }
+                allReviews: {} //empty bc we stack reviews from one spot to another
+            }                 // thus it will keep adding reviews to state
+            // thisll clear the old reviews and replace it
             action.reviews.forEach(review => {
                 reviewsState.allReviews[review.id] = review
             })
             return reviewsState;
+        }
 
         // }
         // {
@@ -89,7 +96,7 @@ const reviewsReducer = (state = initialState, action) => {
         //         {}
         //     )
         // };
-        case UPSERT_REVIEW:
+        case UPSERT_REVIEW: {
             return {
                 ...state,
                 allReviews: {
@@ -102,7 +109,8 @@ const reviewsReducer = (state = initialState, action) => {
                     [action.review.id]: action.review
                 }
             }
-        case DEL_REVIEW:
+        }
+        case DEL_REVIEW: {
             // const newState = { ...state, ...state.allReviews[action.reviewId], ...state.currentUserReviews[action.reviewId] }
             const newState = {
                 ...state,
@@ -113,6 +121,15 @@ const reviewsReducer = (state = initialState, action) => {
             delete newState.currentUserReviews[action.reviewId]
             delete newState.allReviews[action.reviewId]
             return newState
+        }
+        case CLEAR_REVIEWS: {
+            const newState = {
+                ...state,
+                allReviews: {},
+                currentUserReviews: {} //not sure. test pls
+            }
+            return newState
+        }
         default:
             return state;
 

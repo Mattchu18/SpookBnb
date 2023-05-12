@@ -1,6 +1,7 @@
 import { getAllReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { clearReviews } from "../../store/reviews";
 import ReviewDelete from "../Reviews/ReviewDelete";
 import OpenModalButton from "../OpenModalButton";
 import CreateReviewForm from "../Reviews/CreateReviewForm"
@@ -16,6 +17,10 @@ const AllSpotsReviews = ({ spot, spotId }) => {
     useEffect(() => {
         dispatch(getAllReviews(spotId))
 
+        //this is cleanup function that will dispatch and clearReviews
+        return () => {
+            dispatch(clearReviews())
+        }
     }, [dispatch, spotId])
 
     if (!reviews) return null
