@@ -57,7 +57,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (
                     <CreateReviewForm spotId={spotId} />
                 )}
-
+                {!reviews.length && (<p>Be the first to post a review!</p>)}
                 {reviews.map(review => (
                     <ul key={review.id}>
                         <li>spotId: {review.spotId} </li>

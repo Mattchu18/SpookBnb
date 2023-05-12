@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, editSpot, createImage } from '../../store/spots';
+import {getOneSpot} from "../../store/spots"
 
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
@@ -90,7 +91,10 @@ const SpotForm = ({ spot, formType }) => {
 
             console.log("after dispatch create a spot====>", data)
 
-            history.push(`/spots/${data.id}`) //need push to createimage
+            history.push(`/spots/${data.id}`)
+            dispatch(getOneSpot(data.id))
+
+            //need push to createimage
         }
         if (formType === "Edit Spot") {
             const data = await dispatch(editSpot(newSpot))

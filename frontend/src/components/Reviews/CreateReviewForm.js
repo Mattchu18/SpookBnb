@@ -10,7 +10,7 @@ const CreateReviewForm = ({ spotId }) => {
     return (
         <>
             <OpenModalButton
-                buttonText="Create a review"
+                buttonText="Post your review"
                 modalComponent={<ReviewForm
                     reviews={reviews}
                     spotId={spotId}

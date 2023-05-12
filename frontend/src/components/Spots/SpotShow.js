@@ -32,12 +32,22 @@ const SpotShow = () => {
                     {` ${spot.avgStarRating} - ${spot.numReviews} Reviews`}
                 </i>
             )
-        } else {
+        }
+        if (spot.numReviews === 1) {
             return (
                 <i
                     class="fa fa-star"
                     aria-hidden="true">
                     {` ${spot.avgStarRating} - ${spot.numReviews} Review`}
+                </i>
+            )
+        }
+        if (spot.numReviews === 0) {
+            return (
+                <i
+                    class="fa fa-star"
+                    aria-hidden="true">
+                    {`New`}
                 </i>
             )
         }
