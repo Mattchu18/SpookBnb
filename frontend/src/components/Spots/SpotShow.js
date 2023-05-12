@@ -14,14 +14,19 @@ const SpotShow = () => {
     const spot = useSelector((state) => state.spots.allSpots[spotId])
     //check useselector for single spot instead
 
-    useEffect(() => {
-        dispatch(getOneSpot(spotId))
-    }, [dispatch, spotId])
+        useEffect(() => {
+            dispatch(getOneSpot(spotId))
+
+        }, [dispatch, spotId])
+
 
 
 
     if (!spot) return (null);
-    if (!spot.SpotImages) return null;
+
+    if (!spot.SpotImages) return (<div>Hello world</div>)
+
+    console.log('after null', spot)
 
     const numOfReviews = () => {
         if (spot.numReviews > 1) {

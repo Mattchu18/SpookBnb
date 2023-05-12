@@ -72,7 +72,7 @@ export const createSpot = (spot, user) => async (dispatch) => {
         "headers": { 'Content-Type': 'application/json' },
         "body": JSON.stringify(spot)
     })
-    if (res.status === 400) { //doublecheck the res.status in backend -- might be diff status code
+    if (res.status === 400) { //doublecheck the res.status in backend -- might be diff ´´status code
         const data = await res.json()
 
         console.log("you are in res.status 400: ", data) //change later to set any errors?
@@ -209,7 +209,7 @@ const spotsReducer = (state = initialState, action) => {
                 ...state,
                 allSpots: {
                     ...state.allSpots,
-                    [action.spot.id]: action.spot
+                    [action.spot.id]: {...state.allSpots[action.spot.id], ...action.spot}
                 },
                 currentUserSpots: { //since the user is the only one able to upsert
                     //we need to deep copy and overriding the keys of the properties

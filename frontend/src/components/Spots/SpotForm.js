@@ -2,7 +2,13 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, editSpot, createImage } from '../../store/spots';
-import {getOneSpot} from "../../store/spots"
+import { getOneSpot } from "../../store/spots"
+
+const endsWith = (url) => {
+    return (!url.endsWith(".png")
+        || !url.endsWith(".jpg")
+        || !url.endsWith(".jpeg"))
+}
 
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
@@ -29,24 +35,9 @@ const SpotForm = ({ spot, formType }) => {
     const [validationErrors, setValidationErrors] = useState("")
     // const [preview, setPreview] = useState(true)
 
-    useEffect((e) => {
-        let errors = {};
-        if (!country) errors.country = "Country is required"
-        if (!address) errors.address = "Address is required"
-        if (!city) errors.city = "City is required"
-        if (!state) errors.state = "State is required"
-        if (description.length < 30) errors.description = "Description needs a minimum of 30 characters"
-        if (!name) errors.name = "Name is required"
-        if (price >= 0) errors.price = "Price is required"
-        if (url1.length === 0
-            && (!url1.endsWith(".png")
-                || !url1.endsWith(".jpg")
-                || !url1.endsWith(".jpeg"))
-        ) errors.url1 = "Preview image is required"
+    // useEffect((e) => {
 
-        setValidationErrors(errors)
-
-    }, [country, address, city, state, description, name, price, url1, url2, url3, url4, url5])
+    // }, [country, address, city, state, description, name, price, url1, url2, url3, url4, url5])
 
 
 
@@ -56,6 +47,37 @@ const SpotForm = ({ spot, formType }) => {
         //add url
         //make 1st image input placeholder for preview image
         //make new state for [preview, setPreview] = useState(true)
+        let errors = {};
+        if (!country) errors.country = "Country is required"
+        if (!address) errors.address = "Address is required"
+        if (!city) errors.city = "City is required"
+        if (!state) errors.state = "State is required"
+        if (description.length < 30) errors.description = "Description needs a minimum of 30 characters"
+        if (!name) errors.name = "Name is required"
+        if (price >= 0) errors.price = "Price is required"
+
+
+        if (url1.length === 0) errors.url1 = "Preview image is required"
+        if (endsWith(url1)) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+
+
+        if (url2.length &&
+            endsWith(url2)
+        ) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (url3.length &&
+            endsWith(url3)
+        ) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (url4.length &&
+            endsWith(url4)
+        ) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (url5.length &&
+            endsWith(url5)
+        ) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+
+
+
+
+        setValidationErrors(errors)
 
 
         console.log("user====>", user)
@@ -92,7 +114,7 @@ const SpotForm = ({ spot, formType }) => {
             console.log("after dispatch create a spot====>", data)
 
             history.push(`/spots/${data.id}`)
-            dispatch(getOneSpot(data.id))
+
 
             //need push to createimage
         }
