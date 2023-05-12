@@ -19,25 +19,37 @@ const AllSpotsReviews = ({ spot, spotId }) => {
     }, [dispatch, spotId])
 
     if (!reviews) return null
-    console.log("AllSpotsReviews===>", reviews)
+    console.log("AllSpotsReviews2===>", reviews)
 
     // const [userReview] = reviews.filter(review => review.userId === sessionUser.id)
     // console.log("userReview===>", userReview)
     // if( reviews.forEach( review =>
     //     review?.User ?? null
     // ))
-    const match = reviews.find((review) =>
-        review.userId === sessionUser.id)
 
-    const ownerOfSpot = (spot.ownerId === sessionUser.id)
+
+
+    console.log("AllSpotsReviews3===>", reviews)
+
+    //ternary
+
+    const match = (reviews.find((review) =>
+        review.userId === sessionUser?.id))
+
+    // const ownerOfSpot = (spot.ownerId === sessionUser?.id )
+    const ownerOfSpot = (sessionUser && spot.ownerId === sessionUser.id)
+
 
     console.log("ownerOfSpot??====>", ownerOfSpot)
     console.log("this is match!! =>>", match)
+    // console.log("AllSpotsReviews===>", reviews)
+    console.log("AllSpotsReviews4===>", reviews)
 
     return (
         <>
             <div>
-                {!(match || ownerOfSpot) && (
+                {/* !!sessionUser or Boolean(sessionUser) */}
+                {!(match || ownerOfSpot) && Boolean(sessionUser) && (
                     <CreateReviewForm spotId={spotId} />
                 )}
 
@@ -50,7 +62,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                         <li>review: {review.review} </li>
                         <li>date: {review.createdAt}</li>
 
-                        {sessionUser.id === review.userId && (
+                        {sessionUser?.id === review.userId && (
                             <OpenModalButton
                                 buttonText="Delete"
                                 modalComponent={<ReviewDelete
