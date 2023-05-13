@@ -56,7 +56,7 @@ export const getOneSpot = (spotId) => async (dispatch) => {
 
     console.log("res for getOneSpot: ", res)
 
-    if (res.ok || res.status === 200) {
+    if (res.ok) {
         const spot = await res.json(); //we actually get one spot back
 
         console.log("this is getOneSpot: ", spot)
@@ -78,7 +78,7 @@ export const createSpot = (spot, user) => async (dispatch) => {
         console.log("you are in res.status 400: ", data) //change later to set any errors?
         return data
     }
-    if (res.status === 201) {
+    if (res.ok) {
         const data = await res.json()
         // need to mimic structure in API docs
         console.log("inside createSpot spot ===>", spot)
@@ -112,14 +112,14 @@ export const createImage = (spot, imageArr) => async (dispatch) => {
 
         if (res.ok) {
             const data = await res.json()
-            console.log("data inside createImage ===> ", data) //populate the array of SpotImages w/ our new images
+            // console.log("data inside createImage ===> ", data) //populate the array of SpotImages w/ our new images
             // spot.SpotImages.push(data)
             // dispatch(makeSpot(data)) //replace this with new action creator
             // return data
-            dispatch(loadOneSpot(spot))
+
         }
     }
-
+    dispatch(getOneSpot(spot.id))
 
 }
 
@@ -197,10 +197,10 @@ const spotsReducer = (state = initialState, action) => {
             // return { ...state, [action.spot.id]: action.spot };
             return {
                 ...state,
-                allSpots: {
-                    ...state.allSpots, //we getting all the spots
-                    [action.spot.id]: action.spot   //and then pasting over it with the single spot
-                },
+                // allSpots: {
+                //     ...state.allSpots, //we getting all the spots
+                //     [action.spot.id]: action.spot   //and then pasting over it with the single spot
+                // },
                 singleSpot: action.spot
             };
         case UPSERT_SPOT:

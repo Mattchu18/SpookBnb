@@ -11,7 +11,7 @@ const SpotShow = () => {
     const { spotId } = useParams();
     console.log("spotId: ", spotId)
     //we dont need Object.values bc we are getting the allSpots key from our state shape, but getting the one with spotId as the key
-    const spot = useSelector((state) => state.spots.allSpots[spotId])
+    const spot = useSelector((state) => state.spots.singleSpot)
     //check useselector for single spot instead
 
         useEffect(() => {
