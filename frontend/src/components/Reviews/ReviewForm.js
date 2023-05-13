@@ -9,7 +9,7 @@ import { getOneSpot } from '../../store/spots';
 const ReviewForm = ({ spotId, reviews, formType }) => {
     const dispatch = useDispatch();
     const [review, setReview] = useState("");
-    const [stars, setStars] = useState(1);
+    const [stars, setStars] = useState(0);
     const [validationErrors, setValidationErrors] = useState("");
     const { closeModal } = useModal(); // we are pulling our closeModal function from our custom context
 
@@ -31,7 +31,7 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
 
             await dispatch(createReview(spotId, reviews))
                 .then(closeModal)
-                dispatch(getOneSpot(spotId))
+            dispatch(getOneSpot(spotId))
         }
 
     }
@@ -48,13 +48,17 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
                 type="text"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
-                placeholder='Leave your review here' />
-            <StarsRatingInput
-                disabled={false}
-                onChange={onChange}
-                stars={stars}
-            />
-            <input type='submit'/>
+                placeholder='Leave your review here...' />
+            <div>
+                <StarsRatingInput
+                    disabled={false}
+                    onChange={onChange}
+                    stars={stars}
+
+                />
+                <span>Stars</span>
+            </div>
+            <input disabled={review.length < 10 || stars === 0} type='submit' value={"Submit Your Review"}/>
         </form>
 
     )

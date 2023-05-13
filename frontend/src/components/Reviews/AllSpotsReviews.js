@@ -14,6 +14,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
     console.log("sessionUser====>", sessionUser)
     console.log("AllSpotsReviews===>", reviews)
 
+    const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     useEffect(() => {
         dispatch(getAllReviews(spotId))
 
@@ -57,9 +58,10 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (
                     <CreateReviewForm spotId={spotId} />
                 )}
-                {!reviews.length && (<p>Be the first to post a review!</p>)}
-                {reviews.map(review => (
+                {!sortedReviews.length && (<p>Be the first to post a review!</p>)}
+                {sortedReviews.map(review => (
                     <ul key={review.id}>
+                        {/* <li>{review.User.firstName}</li> */}
                         <li>spotId: {review.spotId} </li>
                         {/* below will break my page when I delete a review and try to create a new review */}
                         {/* <li>reviewer: {review.User.firstName}</li> */}
