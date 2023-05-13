@@ -55,7 +55,7 @@ const SpotForm = ({ spot, formType }) => {
 
 
         if (url1.length === 0) errors.url1 = "Preview image is required"
-        if (!endsWith(url1)) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (endsWith(url1)) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
 
 
         if (url2.length &&

@@ -174,7 +174,7 @@ export const deleteSpot = (spot) => async (dispatch) => {
 
 }
 
-const initialState = { allSpots: {}, singleSpot:null, currentUserSpots: {} };
+const initialState = { allSpots: {}, singleSpot: null, currentUserSpots: {} };
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -209,7 +209,7 @@ const spotsReducer = (state = initialState, action) => {
                 ...state,
                 allSpots: {
                     ...state.allSpots,
-                    [action.spot.id]: {...state.allSpots[action.spot.id], ...action.spot}
+                    [action.spot.id]: { ...state.allSpots[action.spot.id], ...action.spot }
                 },
                 currentUserSpots: { //since the user is the only one able to upsert
                     //we need to deep copy and overriding the keys of the properties
@@ -244,7 +244,7 @@ const spotsReducer = (state = initialState, action) => {
                     {}
                 )
             }
-            //on click delete dispatch(getOneSpot)  so it will refresh the page
+        //on click delete dispatch(getOneSpot)  so it will refresh the page
         case DEL_SPOT:
             const newState = {
                 ...state,
