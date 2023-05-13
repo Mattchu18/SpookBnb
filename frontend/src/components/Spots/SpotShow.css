@@ -1,19 +1,27 @@
-
 .global-center {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100%
 }
 
+/* .global_width {
+    width
+
+} */
+
 .spot_title_text {
-    display: inline-block;
-    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
     width: 90%;
+    padding: 10px
 }
 
 .parent_image_container {
     display: flex;
     justify-content: space-between;
+    border-radius: 30px;
+    overflow: hidden;
     flex-wrap: wrap;
     border: 2px solid rgb(0, 255, 30);
     width: 90%;
@@ -44,7 +52,7 @@
 }
 
 .small_images {
-    height:49%;
+    height: 49%;
     width: 49%;
     border: 2px solid red;
 
@@ -58,9 +66,10 @@
 
 }
 
-.spot_details_container{
+.spot_details_container {
     display: flex;
-    align-items: flex-start;
+    padding: 10px;
+    /* align-items: flex-start; */
     justify-content: space-between;
     /* flex-direction: column; */
     width: 90%;
@@ -77,16 +86,18 @@
 
 .callout_container {
     border: 1px solid red;
+    border-radius: 10px;
     display: flex;
-    width: 220px;
+    width: 240px;
     flex-direction: column;
     min-height: 100px;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .callout_text {
-display: flex;
-justify-content: space-between;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .callout_button {
@@ -96,6 +107,10 @@ justify-content: space-between;
 }
 
 .callout_button button {
-    width: 90%
-
+    background-color: brown;
+    border: 1px solid black;
+    border-radius: 10px;
+    color: white;
+    width: 90%;
+    height: 40px
 }

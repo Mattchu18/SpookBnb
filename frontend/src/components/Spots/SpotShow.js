@@ -63,7 +63,9 @@ const SpotShow = () => {
     //this console.log for spot.SpotImages returns undefined and crashes
     console.log("inside SpotShow spot: ", spot.Owner.firstName)
 
-
+    const alertButton = () => {
+        alert("Feature coming soon!!")
+    }
 
 
     return (
@@ -104,18 +106,19 @@ const SpotShow = () => {
                             {numOfReviews()}
                         </div>
                         <div className="callout_button">
-                            <button>
+                            <button onClick={() => alert("Feature coming soon!!!")}>
                                 Reserve
                             </button>
                         </div>
                     </div>
 
 
-                    <hr />
                 </div>
+                <hr />
                 {/* <CreateReviewForm spotId={spotId} /> */}
                 <AllSpotsReviews spot={spot} spotId={spotId} />
             </div>
+
         </>
     )
 }
