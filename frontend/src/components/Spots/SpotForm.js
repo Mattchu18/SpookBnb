@@ -4,11 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSpot, editSpot, createImage } from '../../store/spots';
 import { getOneSpot } from "../../store/spots"
 
-const endsWith = (url) => {
-    return (!url.endsWith(".png")
-        || !url.endsWith(".jpg")
-        || !url.endsWith(".jpeg"))
-}
+const endsWith = (url) =>  !url.endsWith(".jpg") && !url.endsWith(".png") && !url.endsWith(".jpeg")
+
 
 const SpotForm = ({ spot, formType }) => {
     const dispatch = useDispatch();
@@ -54,11 +51,11 @@ const SpotForm = ({ spot, formType }) => {
         if (!state) errors.state = "State is required"
         if (description.length < 30) errors.description = "Description needs a minimum of 30 characters"
         if (!name) errors.name = "Name is required"
-        if (price >= 0) errors.price = "Price is required"
+        if (price <= 0) errors.price = "Price is required"
 
 
         if (url1.length === 0) errors.url1 = "Preview image is required"
-        if (endsWith(url1)) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
+        if (!endsWith(url1)) errors.url2 = "Image URL must end in .png, .jpg, or .jpeg"
 
 
         if (url2.length &&
@@ -131,20 +128,19 @@ const SpotForm = ({ spot, formType }) => {
     //     setPreview(true)
     // }
 
-    const button = () => {
-        {formType === "Create Spot" ? <button type="submit">Create Spot</button> : <button type="submit">Update your Spot</button>}
-    }
+
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Spot Form Name</h2>
+            {formType === "Create Spot" ? <h2>Create a New Spot</h2> : <h2>Update your Spot</h2> }
+
             <div>
                 <h3>Where's your place located?</h3>
                 Guests will only get your exact address once they booked a reservation.
             </div>
             <div>
-                {validationErrors.country ? <p className="errors">{validationErrors.country}</p> : null}
+
                 <label>
-                    Country
+                    Country {validationErrors.country ? <p className="errors">{validationErrors.country}</p> : null}
                     <input
                         type="text"
                         value={country}
@@ -154,22 +150,20 @@ const SpotForm = ({ spot, formType }) => {
                 </label>
 
             </div>
-            {validationErrors.address ? <p className="errors">{validationErrors.address}</p> : null}
 
             <label>
-                Street Address
+                Street Address {validationErrors.address ? <p className="errors">{validationErrors.address}</p> : null}
+
                 <input
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    placeholder='Address'
+                    placeholder='Street Address'
                 />
             </label>
             <div>
-                {validationErrors.city ? <p className="errors">{validationErrors.city}</p> : null}
-
                 <label>
-                    City
+                    City {validationErrors.city ? <p className="errors">{validationErrors.city}</p> : null}
                     <input
                         type="text"
                         value={city}
@@ -178,10 +172,9 @@ const SpotForm = ({ spot, formType }) => {
                     />
                 </label>
                 <span>, </span>
-                {validationErrors.state ? <p className="errors">{validationErrors.state}</p> : null}
 
                 <label>
-                    State
+                    State {validationErrors.state ? <p className="errors">{validationErrors.state}</p> : null}
                     <input
                         type="text"
                         value={state}
@@ -211,7 +204,7 @@ const SpotForm = ({ spot, formType }) => {
                 </div> */}
             </div>
             <div>
-                <h3>Describe you place to guests</h3>
+                <h3>Describe your place to guests</h3>
                 <label>
                     Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.
                     <textarea
@@ -262,6 +255,7 @@ const SpotForm = ({ spot, formType }) => {
                         value={url1} //might need refactoring... boolean?
                         onChange={(e) => setUrl1(e.target.value)}
                         placeholder='Preview Image URL'
+
                     />
                     {validationErrors.url1 ? <p className="errors">{validationErrors.url1}</p> : null}
 
@@ -293,7 +287,7 @@ const SpotForm = ({ spot, formType }) => {
                     />
                 </label>
                 {/* <button type="submit">Create Spot</button> */}
-                {formType === "Create Spot" ? <button type="submit">Create Spot</button> : <button type="submit">Update your Spot</button>}
+                {formType === "Create Spot" ? <button disabled={!(address || city || state || country || name || description || price || url1)} type="submit">Create Spot</button> : <button type="submit">Update your Spot</button>}
             </div>
         </form>
 
