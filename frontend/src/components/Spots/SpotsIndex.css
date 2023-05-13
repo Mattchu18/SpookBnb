@@ -4,6 +4,11 @@
     /* max-width: 1400px; */
 }
 
+.global-center {
+    display: flex;
+    justify-content: center;
+}
+
 div.all-spots-container {
     max-width: 1350px;
     display: flex;
@@ -29,10 +34,10 @@ div.spots-card-container {
     gap: 10px;
 }
 
-.spots-card-pic-container {
+/* .spots-card-pic-container {
     width: 100%;
     height: 100%;
-}
+} */
 
 
 .spots-image-container {
@@ -45,6 +50,15 @@ div.spots-card-container {
     width: 100%;
     height: 100%;
 }
+.spots-card-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 5px;
+    width: 97%;
+    height: 100%;
+    gap: 3px;
+}
 
 .location-rating {
     display: flex;
@@ -52,20 +66,9 @@ div.spots-card-container {
     margin-bottom: 5px;
 }
 
-.spots-card-text-container {
-    padding: 5px;
-    width: 97%;
-    height: 100%;
-    gap: 3px;
-}
+
 
 .reset-text {
     text-decoration: none;
     color: black;
-}
-
-.global-center {
-    display: flex;
-    justify-content: center;
-
 }

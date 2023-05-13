@@ -34,7 +34,7 @@ const SpotShow = () => {
                 <i
                     class="fa fa-star"
                     aria-hidden="true">
-                    {` ${spot.avgStarRating} - ${spot.numReviews} Reviews`}
+                    {` ${spot.avgStarRating.toFixed(2)} - ${spot.numReviews} Reviews`}
                 </i>
             )
         }
