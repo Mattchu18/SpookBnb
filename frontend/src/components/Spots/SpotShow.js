@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import AllSpotsReviews from "../Reviews/AllSpotsReviews";
 import CreateReviewForm from "../Reviews/CreateReviewForm"
-
+import "./SpotShow.css"
 
 const SpotShow = () => {
     const dispatch = useDispatch();
@@ -14,10 +14,10 @@ const SpotShow = () => {
     const spot = useSelector((state) => state.spots.singleSpot)
     //check useselector for single spot instead
 
-        useEffect(() => {
-            dispatch(getOneSpot(spotId))
+    useEffect(() => {
+        dispatch(getOneSpot(spotId))
 
-        }, [dispatch, spotId])
+    }, [dispatch, spotId])
 
 
 
@@ -68,20 +68,54 @@ const SpotShow = () => {
 
     return (
         <>
-            <h2>{spot.name}</h2>
-            <p>{spot.city}, {spot.state}, {spot.country}</p>
-            {spot.SpotImages.map(images => (<img src={`${images.url}`} />))}
-            <div>
-                <h2>{`Hosted by spot ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <div>
-                    <h2>{`$${spot.price} night`}</h2>
-                    {numOfReviews()}
+
+            <div className="global-center">
+                <div className="spot_title_text">
+                    <h2>{spot.name}</h2>
+                    <p>{spot.city}, {spot.state}, {spot.country}</p>
                 </div>
-                <hr />
+
+                <div className="parent_image_container">
+                    {spot.SpotImages[0].url && (
+                        <div className="big_image_container">
+                            <img src={spot.SpotImages[0].url} />
+                        </div>
+                    )}
+
+                    <div className="small_images_container">
+                        {spot.SpotImages.map(images => (
+                            (images.preview !== true) ? (
+                                <div className="small_images">
+                                    <img src={`${images.url}`} />
+                                </div>
+                            ) : null
+                        ))}
+                    </div>
+                </div>
+
+                <div className="spot_details_container">
+                    <div className="spot_details_text">
+                        <h2>{`Hosted by spot ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    <div className="callout_container">
+                        <div className="callout_text">
+                            <h2>{`$${spot.price} night`}</h2>
+                            {numOfReviews()}
+                        </div>
+                        <div className="callout_button">
+                            <button>
+                                Reserve
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <hr />
+                </div>
+                {/* <CreateReviewForm spotId={spotId} /> */}
+                <AllSpotsReviews spot={spot} spotId={spotId} />
             </div>
-            {/* <CreateReviewForm spotId={spotId} /> */}
-            <AllSpotsReviews spot={spot} spotId={spotId} />
         </>
     )
 }

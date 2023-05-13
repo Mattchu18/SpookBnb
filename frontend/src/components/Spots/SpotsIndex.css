@@ -1,12 +1,15 @@
 * {
     margin: 0;
     padding: 0;
+
     /* max-width: 1400px; */
 }
 
 .global-center {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 div.all-spots-container {
