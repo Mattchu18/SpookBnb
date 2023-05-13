@@ -56,9 +56,11 @@ const AllSpotsReviews = ({ spot, spotId }) => {
             <div>
                 {/* !!sessionUser or Boolean(sessionUser) */}
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (
-                    <CreateReviewForm spotId={spotId} />
+                    <>
+                        <CreateReviewForm spotId={spotId} />
+                        {!sortedReviews.length && (<p>Be the first to post a review!</p>)}
+                    </>
                 )}
-                {!sortedReviews.length && (<p>Be the first to post a review!</p>)}
                 {sortedReviews.map(review => (
                     <ul key={review.id}>
                         {/* <li>{review.User.firstName}</li> */}

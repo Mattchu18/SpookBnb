@@ -22,7 +22,7 @@ const CurrentSpots = () => {
     return (
         <>
             <div>
-                <h2>Manage Your Spots</h2>
+                <h2>Manage Spots</h2>
 
                 <Link to={"/spots/new"}>
                     <button>Create a New Spot</button>

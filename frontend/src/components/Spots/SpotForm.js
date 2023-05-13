@@ -130,6 +130,10 @@ const SpotForm = ({ spot, formType }) => {
     //     setUrl1(e.target.value)
     //     setPreview(true)
     // }
+
+    const button = () => {
+        {formType === "Create Spot" ? <button type="submit">Create Spot</button> : <button type="submit">Update your Spot</button>}
+    }
     return (
         <form onSubmit={handleSubmit}>
             <h2>Spot Form Name</h2>
@@ -237,7 +241,7 @@ const SpotForm = ({ spot, formType }) => {
             <div>
                 <h3>Set a base price for your spot</h3>
                 <label>
-                    Competitive pricing can help your listing stnad out and rank higher in search results.
+                    Competitive pricing can help your listing stand out and rank higher in search results.
                     <input
                         type="number"
                         value={price}
@@ -288,7 +292,8 @@ const SpotForm = ({ spot, formType }) => {
                         placeholder='Image URL'
                     />
                 </label>
-                <button type="submit">Create Spot</button>
+                {/* <button type="submit">Create Spot</button> */}
+                {formType === "Create Spot" ? <button type="submit">Create Spot</button> : <button type="submit">Update your Spot</button>}
             </div>
         </form>
 
