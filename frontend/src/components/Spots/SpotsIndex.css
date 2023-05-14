@@ -13,9 +13,12 @@
 }
 
 div.all-spots-container {
-    max-width: 1350px;
+    max-width: 1245px;
+    margin: 25px auto;
+    column-gap: 15px;
+    row-gap: 35px;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items:center;
 
     /* flex-direction: row-reverse;
@@ -26,15 +29,14 @@ div.all-spots-container {
 }
 
 div.spots-card-container {
-    width: 19rem;
-    height: 17rem;
+    width: 300px;
+    height: 240px;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     border-radius: 10px;
-    border: 1px solid;
     overflow: hidden;
-    gap: 10px;
+    gap: 5px;
 }
 
 /* .spots-card-pic-container {
@@ -44,9 +46,12 @@ div.spots-card-container {
 
 
 .spots-image-container {
+    border: 1px solid grey;
+    border-radius: 10px;
+    overflow: hidden;
     object-fit: cover;
     width: 100%;
-    min-height: 150px;
+    min-height: 170px;
 }
 
 .spots-image-container>img {
