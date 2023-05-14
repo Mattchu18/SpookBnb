@@ -3,7 +3,7 @@ import { getOneSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import "./SpotForm.css"
 
 const EditSpotForm = () => {
     const dispatch = useDispatch();
@@ -21,13 +21,11 @@ const EditSpotForm = () => {
     if (!spot) return null
 
     return (
-        <div>
-
+        <div className='global-center'>
                 <SpotForm
                     spot={spot}
                     formType="Edit Spot"
                 />
-
         </div>
     )
 }

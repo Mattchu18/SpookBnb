@@ -138,7 +138,7 @@ const SpotForm = ({ spot, formType }) => {
 
                 <div className='h3_form_heading'>
                     <h3>Where's your place located?</h3>
-                    Guests will only get your exact address once they booked a reservation.
+                    <p>Guests will only get your exact address once they booked a reservation.</p>
                 </div>
                 <div className='form-input'>
                     <div className='form-name-errors'>
@@ -210,7 +210,7 @@ const SpotForm = ({ spot, formType }) => {
                 <div className='form-input padding'>
                     <div className='h3_form_heading'>
                         <h3>Create a title for your spot</h3>
-                        Catch guests' attention with a spot title that highlights what makes your place special.
+                        <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
                     </div>
                     <div className='form-input'>                        <input
                         type="text"
