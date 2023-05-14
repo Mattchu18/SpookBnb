@@ -53,7 +53,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
 
     return (
         <>
-            <div>
+            <>
                 {/* !!sessionUser or Boolean(sessionUser) */}
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (
                     <>
@@ -62,14 +62,15 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                     </>
                 )}
                 {sortedReviews.map(review => (
-                    <ul key={review.id}>
+                    <div className="review" key={review.id}>
                         {/* <li>{review.User.firstName}</li> */}
-                        <li>spotId: {review.spotId} </li>
-                        {/* below will break my page when I delete a review and try to create a new review */}
-                        {/* <li>reviewer: {review.User.firstName}</li> */}
-                        <li>stars: {review.stars} </li>
-                        <li>review: {review.review} </li>
-                        <li>date: {review.createdAt}</li>
+                        <p>firstName: {review.User?.firstName}</p>
+                        <p>spotId: {review.spotId} </p>
+                        {/* below will break my page when I delete p review and try to create p new review */}
+                        {/* <p>reviewer: {review.User.firstName}</p> */}
+                        <p>stars: {review.stars} </p>
+                        <p>review: {review.review} </p>
+                        <p>date: {review.createdAt}</p>
 
                         {sessionUser?.id === review.userId && (
                             <OpenModalButton
@@ -83,9 +84,9 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                         )}
 
                         {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
-                    </ul>
+                    </div>
                 ))}
-            </div>
+            </>
 
         </>
 

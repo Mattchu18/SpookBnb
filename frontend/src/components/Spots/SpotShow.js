@@ -114,7 +114,10 @@ const SpotShow = () => {
 
 
                 </div>
-                <hr />
+
+                <div className="reviews_container">
+                    {numOfReviews()}
+                </div>
                 {/* <CreateReviewForm spotId={spotId} /> */}
                 <AllSpotsReviews spot={spot} spotId={spotId} />
             </div>
