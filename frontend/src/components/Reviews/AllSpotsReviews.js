@@ -9,6 +9,7 @@ import CreateReviewForm from "../Reviews/CreateReviewForm"
 const AllSpotsReviews = ({ spot, spotId }) => {
     const dispatch = useDispatch();
     const reviewsObj = useSelector((state) => state.reviews.allReviews)
+    // const reviewsObj2 = useSelector((state) => state.reviews)
     const reviews = Object.values(reviewsObj)
     const sessionUser = useSelector((state) => state.session.user)
     console.log("sessionUser====>", sessionUser)
@@ -53,6 +54,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
 
     return (
         <>
+        {console.log("sortedReviews====>", sortedReviews)}
             <>
                 {/* !!sessionUser or Boolean(sessionUser) */}
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (

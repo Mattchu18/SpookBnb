@@ -1,4 +1,6 @@
 import SpotForm from './SpotForm'
+import "./SpotForm.css"
+
 
 const CreateSpotForm = () => {
     //rename previewImage to preview (boolean)
@@ -16,13 +18,13 @@ const CreateSpotForm = () => {
     // }
 
     return (
-        <div>
+        <>
             <SpotForm
                 // spot={spot}
                 formType="Create Spot"
             />
 
-        </div>
+        </>
     )
 }
 

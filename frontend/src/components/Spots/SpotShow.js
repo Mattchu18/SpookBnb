@@ -22,9 +22,9 @@ const SpotShow = () => {
 
 
 
-    if (!spot) return (null);
+    if (!spot) return (<h1>Hello World</h1>);
 
-    if (!spot.SpotImages) return (<div>Hello world</div>)
+    if (!spot.SpotImages) return (null)
 
     console.log('after null', spot)
 

@@ -1,0 +1,14 @@
+.global-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%
+}
+
+form.form_container {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    min-height: 580px;
+    justify-content: space-around;
+}
