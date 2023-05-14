@@ -1,4 +1,8 @@
 /* TODO Add site wide styles */
+h1 {
+ color: antiquewhite;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }
@@ -6,4 +10,9 @@ body {
 
 button:hover {
   box-shadow: 2px 2px 5px 1px darkgrey;
+}
+
+div.spots-card-container:hover {
+  transform: scale(1.05);
+  transition: .5s ease;
 }

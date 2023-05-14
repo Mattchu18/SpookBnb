@@ -1,22 +1,10 @@
 .profile-dropdown.hidden {
     display: none
 }
-/*
-.header {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgb(207, 216, 174);
-    height: 30px;
-    padding: 5px;
-    position: relative;
-    align-items: center;
-} */
-
-
 
 .header_container{
     position: relative;
-    background-color: #4B0082;
+    background-color: #2d2d2d;
     display: flex;
     justify-content: space-between;
     align-items: center;
