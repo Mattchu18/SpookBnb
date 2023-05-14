@@ -71,6 +71,18 @@ module.exports = {
         price: '150'
       },
       {
+        ownerId: '2',
+        address: '1234 Elm Street',
+        city: 'Los Angeles',
+        state: 'CA',
+        country: 'USA',
+        lat: '34.0522',
+        lng: '-118.2437',
+        name: 'Sleek and Modern in LA',
+        description: 'Experience the glamour of Los Angeles from this sleek and modern spot in the heart of Hollywood. Walk to the nearby studios and attractions, or take a dip in the rooftop pool. Relax in a stylishly appointed apartment with all the amenities, or take in the views of the city from the balcony. This spot is perfect for a luxurious city break with all the trimmings.',
+        price: '250'
+      },
+      {
         ownerId: '3',
         address: '9 Ocean Drive',
         city: 'Honolulu',
