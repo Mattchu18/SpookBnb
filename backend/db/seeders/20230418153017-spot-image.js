@@ -97,7 +97,7 @@ module.exports = {
       },
       {
         spotId: '4',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/538326397/photo/spooky-empty-room-with-mysterious-light-beams.jpg?s=612x612&w=0&k=20&c=AvvEcx16WoMZ5zR3jVtD2yoa5JAEl0SA_5SGU09Tx8c=',
         preview: 'false',
       },
       {
@@ -167,12 +167,12 @@ module.exports = {
       },
       {
         spotId: '7',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/961644896/photo/haunted-house.jpg?s=612x612&w=0&k=20&c=oeFamDz6QCI9UAOPgjOrgLFOEvfeZmaPAGGTT-BOSoA=',
         preview: 'false',
       },
       {
         spotId: '7',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/528919280/photo/abandoned-psychiatric-hospital.jpg?s=612x612&w=0&k=20&c=DvYz1RyX1gj-96DHt4WuZNs42VWBw0pBn52pJz5RBYk=',
         preview: 'false',
       },
       {
@@ -182,7 +182,7 @@ module.exports = {
       },
       {
         spotId: '7',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1271692671/photo/3d-illustration-medieval-fairy-tale-cottage.jpg?s=612x612&w=0&k=20&c=F4sd1tAOwfNwm_SuuXddVU36bZwSqvLBWspM4og82BA=',
         preview: 'false',
       },
       {
@@ -207,7 +207,7 @@ module.exports = {
       },
       {
         spotId: '8',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/108330113/photo/ghost-woman-on-haunted-staircase.jpg?s=612x612&w=0&k=20&c=GjQu87Mep43bT0gTqBTqd6SMf2ZL8RLiy6Acd__DiAw=',
         preview: 'false',
       },
       {
@@ -227,7 +227,7 @@ module.exports = {
       },
       {
         spotId: '9',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1126082719/photo/haunted-halloween-house.jpg?s=612x612&w=0&k=20&c=DQEmNIOW5QWomwzmh4GsjrU6iVOEyl3bEJPZiTU2CPA=',
         preview: 'false',
       },
       {
@@ -307,7 +307,7 @@ module.exports = {
       },
       {
         spotId: '12',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/186595231/photo/spooky-haunted-house-at-night.jpg?s=612x612&w=0&k=20&c=fbEsCti3W2cOAd3v4oWWw3Y2S17uRtQ8e2s7-6fR2H0=',
         preview: 'false',
       },
       {
@@ -317,7 +317,7 @@ module.exports = {
       },
       {
         spotId: '13',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/451853437/photo/man-walking-in-a-field.jpg?s=612x612&w=0&k=20&c=cdxgJT_DcWVuqgVFtyomnfDn1yin-t8jTK29RoM_6GU=',
         preview: 'false',
       },
       {
@@ -432,7 +432,7 @@ module.exports = {
       },
       {
         spotId: '17',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1176089408/photo/3d-rendering-of-old-rocking-chair-at-dark-attic-with-light-ray-concept-age-and-past.jpg?s=612x612&w=0&k=20&c=GwRR9z2k1qzVjqLUwFLLT3VlcII1ifjNM9cfUYro4Vo=',
         preview: 'false',
       },
       {
@@ -472,7 +472,7 @@ module.exports = {
       },
       {
         spotId: '19',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/485684636/photo/spirit-photography.jpg?s=612x612&w=0&k=20&c=o6hMFfg0wFdeENYSqkPw6uWDzXL8VSoEOTQscEkxB28=',
         preview: 'false',
       },
       {
@@ -482,7 +482,7 @@ module.exports = {
       },
       {
         spotId: '19',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/108200120/photo/old-mansion.jpg?s=612x612&w=0&k=20&c=kFH38M6dZrZ_7zXMtas6T8c4uQeliAHPPGOS9qFXPAI=',
         preview: 'false',
       },
       {
