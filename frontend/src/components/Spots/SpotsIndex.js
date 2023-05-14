@@ -25,6 +25,7 @@ const SpotsIndex = () => {
 
                 <div className="all-spots-container">
                     {sortedSpots.map((spot) => (
+
                         <Link className="reset-text" to={`/spots/${spot.id}`} >
                             <div key={spot.id} className="spots-card-container">
 

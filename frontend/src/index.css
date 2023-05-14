@@ -1,9 +1,9 @@
 /* TODO Add site wide styles */
-* {
-  background-color: antiquewhite;
+body {
+  font-family: 'Roboto', sans-serif;
 }
 
 
-body {
-    font-family: 'Roboto', sans-serif;
-  }
+button:hover {
+  box-shadow: 2px 2px 5px 1px darkgrey;
+}

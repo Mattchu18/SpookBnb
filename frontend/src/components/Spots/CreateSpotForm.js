@@ -18,13 +18,13 @@ const CreateSpotForm = () => {
     // }
 
     return (
-        <>
+        <div className='global-center'>
             <SpotForm
                 // spot={spot}
                 formType="Create Spot"
             />
 
-        </>
+        </div>
     )
 }
 
