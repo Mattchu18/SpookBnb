@@ -20,13 +20,13 @@ const SpotShow = () => {
     }, [dispatch, spotId])
 
 
-
+//state.spots.singleSpot.SpotImages is populating wrong
 
     if (!spot) return (<h1>Hello World</h1>);
 
     if (!spot.SpotImages) return (null)
 
-    console.log('after null', spot)
+    console.log('SPOT SHOW SPOT======>', spot)
 
     const numOfReviews = () => {
         if (spot.numReviews > 1) {
@@ -67,7 +67,8 @@ const SpotShow = () => {
         alert("Feature coming soon!!")
     }
 
-
+    const previewTrue = spot.SpotImages.find(image => image.preview === true )
+    // console.log(" PreviewTrue=====>", previewTrue)
     return (
         <>
 
@@ -78,9 +79,9 @@ const SpotShow = () => {
                 </div>
 
                 <div className="parent_image_container">
-                    {spot.SpotImages[0].url && (
+                    {previewTrue && (
                         <div className="big_image_container">
-                            <img src={spot.SpotImages[0].url} />
+                            <img src={previewTrue.url} />
                         </div>
                     )}
 

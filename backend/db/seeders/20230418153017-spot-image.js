@@ -147,7 +147,7 @@ module.exports = {
       },
       {
         spotId: '6',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1327837669/photo/old-haunted-abandoned-mansion-in-creepy-night-forest-with-cold-fog-atmosphere-3d-rendering.jpg?s=612x612&w=0&k=20&c=hngRFupWhIRdjB1kUKJ9TwDC9YjOP12Tq3bOELjOJNQ=',
         preview: 'false',
       },
       {
@@ -332,7 +332,7 @@ module.exports = {
       },
       {
         spotId: '13',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1327837669/photo/old-haunted-abandoned-mansion-in-creepy-night-forest-with-cold-fog-atmosphere-3d-rendering.jpg?s=612x612&w=0&k=20&c=hngRFupWhIRdjB1kUKJ9TwDC9YjOP12Tq3bOELjOJNQ=',
         preview: 'false',
       },
       {

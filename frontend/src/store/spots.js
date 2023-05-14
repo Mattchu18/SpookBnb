@@ -193,7 +193,7 @@ const spotsReducer = (state = initialState, action) => {
                 )
             };
         case GET_ONE_SPOT:
-            // console.log("inside spotsReducer: ", action)
+            console.log("inside spotsReducer: ", action)
             // return { ...state, [action.spot.id]: action.spot };
             return {
                 ...state,
@@ -202,6 +202,7 @@ const spotsReducer = (state = initialState, action) => {
                 //     [action.spot.id]: action.spot   //and then pasting over it with the single spot
                 // },
                 singleSpot: action.spot
+
             };
         case UPSERT_SPOT:
             console.log("inside spotsReducer DO_SPOT: ", action.spot)
