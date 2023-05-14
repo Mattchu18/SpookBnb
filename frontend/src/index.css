@@ -1,4 +1,9 @@
 /* TODO Add site wide styles */
+* {
+  background-color: antiquewhite;
+}
+
+
 body {
     font-family: 'Roboto', sans-serif;
   }

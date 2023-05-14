@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         spotId: '2',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/997329074/photo/mysterious-dark-hall-with-light.jpg?s=612x612&w=0&k=20&c=Nub4ZUf-_l8Luws_LSJbs5P-IbjUFznGFfcgdrTFPs0=',
         preview: 'false',
       },
       {
@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         spotId: '2',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/539440220/photo/walkway-in-abandoned-building-with-scary-woman-inside.jpg?s=612x612&w=0&k=20&c=QImx5-069IVUYA2I9MiS1LxqcrOsxEFadC_Rzr9G2Fk=',
         preview: 'false',
       },
       {
@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         spotId: '3',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1033846974/photo/horror-scene-of-ghost-woman-death-movie-halloween-festival-in-the-dark-house-nightmare.jpg?s=612x612&w=0&k=20&c=CnvILiLI8muKgVY_0qppl9TinGyMN5jVmL27BrkptlA=',
         preview: 'false',
       },
       {
@@ -112,7 +112,7 @@ module.exports = {
       },
       {
         spotId: '5',
-        url: 'https://media.istockphoto.com/id/506695963/photo/haunted-house.jpg?s=612x612&w=0&k=20&c=iIVCIT4LCQ5J-pDccAbXpUbvulw6kt5fuMmeKehMblw=',
+        url: 'https://media.istockphoto.com/id/186748997/photo/haunted-farmhouse.jpg?s=612x612&w=0&k=20&c=kp9gkpYew84fMMNVESXAELbX3EZrGKwiYo9bqcynR9s=',
         preview: 'true',
       },
       {
@@ -127,7 +127,7 @@ module.exports = {
       },
       {
         spotId: '5',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/503276492/photo/abandoned-room-with-broken-window.jpg?s=612x612&w=0&k=20&c=zrFtVI0VV9YL6fJmZwPhhz3rtZz4I8CBqmGPFaxP8W0=',
         preview: 'false',
       },
       {
@@ -202,7 +202,7 @@ module.exports = {
       },
       {
         spotId: '8',
-        url: 'https://media.istockphoto.com/id/489181524/photo/haunted-house.jpg?s=612x612&w=0&k=20&c=ZDYRiuKLWl-miUJa637iFuY3p8wYjp-tDdCTRPUiy6Q=',
+        url: 'https://media.istockphoto.com/id/960281570/photo/dirty-empty-dark-corridor-in-abandoned-building-doors-light-in-the-end-perspective-way-to.jpg?s=612x612&w=0&k=20&c=bm0V95NHrphTg_toBHTuJf_XevuV7mDhjrzbsfQ8v-Q=',
         preview: 'false',
       },
       {
@@ -257,7 +257,7 @@ module.exports = {
       },
       {
         spotId: '10',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1327837669/photo/old-haunted-abandoned-mansion-in-creepy-night-forest-with-cold-fog-atmosphere-3d-rendering.jpg?s=612x612&w=0&k=20&c=hngRFupWhIRdjB1kUKJ9TwDC9YjOP12Tq3bOELjOJNQ=',
         preview: 'false',
       },
       {
@@ -302,7 +302,7 @@ module.exports = {
       },
       {
         spotId: '12',
-        url: 'https://cdn.pixabay.com/photo/2022/10/09/02/16/haunted-house-7508035_1280.jpg',
+        url: 'https://media.istockphoto.com/id/1132260774/photo/dark-creepy-corridor-of-abandoned-hospital-at-night-horror-concept.jpg?s=612x612&w=0&k=20&c=hv_lafERt64bJyMcdoeqXnA0VoBpZYkcsYz_AQ6pCSA=',
         preview: 'false',
       },
       {
@@ -457,12 +457,12 @@ module.exports = {
       },
       {
         spotId: '18',
-        url: 'https://media.istockphoto.com/id/1420333267/photo/3d-rendering-of-an-old-japanese-shrine-with-red-torii-gate-and-wooden-illuminated-lantern-at.jpg?s=612x612&w=0&k=20&c=M-ZZsHTGaRYr-SGRcC6LQz9Il-vNxhean5eV3h4g-hw=',
+        url: 'https://media.istockphoto.com/id/636377058/photo/haunted-house.jpg?s=612x612&w=0&k=20&c=WhmUAi4aFvBDqsstl1hIk-C0iylPYSj5cJhSSu2Xcqs=',
         preview: 'false',
       },
       {
         spotId: '19',
-        url: 'https://media.istockphoto.com/id/1280975546/photo/abandoned-haunted-house-refuge-of-spirits-moonlit-night-3d-illustration.jpg?s=612x612&w=0&k=20&c=NFQgqrJfHpuLmcIlI8DkRqrHb9c3fkh3varo0P1bzYY=',
+        url: 'https://media.istockphoto.com/id/506695963/photo/haunted-house.jpg?s=612x612&w=0&k=20&c=iIVCIT4LCQ5J-pDccAbXpUbvulw6kt5fuMmeKehMblw=',
         preview: 'true',
       },
       {
