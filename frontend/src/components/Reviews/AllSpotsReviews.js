@@ -61,6 +61,9 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                         {!sortedReviews.length && (<p>Be the first to post a review!</p>)}
                     </>
                 )}
+                <div>
+
+                </div>
                 {sortedReviews.map(review => (
                     <div className="review" key={review.id}>
                         {/* <li>{review.User.firstName}</li> */}
@@ -72,16 +75,17 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                         <p>review: {review.review} </p>
                         <p>date: {review.createdAt}</p>
 
-                        {sessionUser?.id === review.userId && (
-                            <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<ReviewDelete
-                                    review={review.id}
-                                    spotId={spotId}
-                                />}
-                            />
+                            {sessionUser?.id === review.userId && (
+                                <OpenModalButton
+                                    className="delete_review_button"
+                                    buttonText="Delete"
+                                    modalComponent={<ReviewDelete
+                                        review={review.id}
+                                        spotId={spotId}
+                                    />}
+                                />
 
-                        )}
+                            )}
 
                         {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
                     </div>

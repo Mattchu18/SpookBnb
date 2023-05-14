@@ -17,7 +17,7 @@ const ReviewDelete = ({ review, spotId }) => {
     }
 
     return (
-        <div className="review_delete_container">
+        <div className="modal_review_delete_container">
             <div className="review_delete_text">
                 <h2>Confirm Delete</h2>
                 <p>Are you sure you want to delete this review?</p>
