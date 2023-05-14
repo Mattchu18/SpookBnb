@@ -9,7 +9,6 @@ const EditSpotForm = () => {
     const dispatch = useDispatch();
     const { spotId } = useParams();
     const spot = useSelector((state) => state.spots.singleSpot) //state.spots is because of rootreducer in store/index.js
-    console.log("this is editspotform spotid: ")
     console.log("inside editSpot: ", spot)
     // if (!spot) return (null);
 

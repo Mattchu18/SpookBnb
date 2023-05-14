@@ -119,7 +119,7 @@ const SpotForm = ({ spot, formType }) => {
             const data = await dispatch(editSpot(newSpot))
 
             history.push(`/spots/${data.id}`)
-
+            return
         }
     }
 

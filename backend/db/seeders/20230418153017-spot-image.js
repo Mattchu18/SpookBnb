@@ -137,7 +137,7 @@ module.exports = {
       },
       {
         spotId: '6',
-        url: 'https://media.istockphoto.com/id/1182964639/photo/two-glowing-halloween-pumpkins-at-the-entrance-to-an-old-wooden-house.jpg?s=612x612&w=0&k=20&c=xSksE905-0R-EBdMaIKU8Fqim6qqJtiOcj1JJfQjNS4=',
+        url: 'https://media.istockphoto.com/id/1346190688/photo/ominous-dilapidated-and-abandoned-mansion-with-illuminated-interior-lighting-under-a-dark.jpg?s=612x612&w=0&k=20&c=0QyY_FH08PBwOBUMv8yLetLi1DAuEc6ECcT53MjpUiQ=',
         preview: 'true',
       },
       {

@@ -153,9 +153,8 @@ export const editSpot = (spot) => async (dispatch) => {
         console.log("you are in res.status 400: ", data)
         return data
     }
-    if (res.status === 200) {
+    if (res.ok) {
         const data = await res.json()
-        console.log("this is res.status 200")
         dispatch(makeSpot(data))
         return data
     }
