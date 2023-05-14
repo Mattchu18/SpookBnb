@@ -63,9 +63,6 @@ const SpotShow = () => {
     //this console.log for spot.SpotImages returns undefined and crashes
     console.log("inside SpotShow spot: ", spot.Owner.firstName)
 
-    const alertButton = () => {
-        alert("Feature coming soon!!")
-    }
 
     const previewTrue = spot.SpotImages.find(image => image.preview === true )
     // console.log(" PreviewTrue=====>", previewTrue)

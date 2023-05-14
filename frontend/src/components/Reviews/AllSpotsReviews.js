@@ -16,6 +16,16 @@ const AllSpotsReviews = ({ spot, spotId }) => {
     console.log("AllSpotsReviews===>", reviews)
 
     const sortedReviews = reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+
+    const monthYearConvert = (dateString) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const listOfMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const monthName = listOfMonths[month];
+        return `${monthName} ${year}`
+    }
+
     useEffect(() => {
         dispatch(getAllReviews(spotId))
 
@@ -54,7 +64,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
 
     return (
         <>
-        {console.log("sortedReviews====>", sortedReviews)}
+            {console.log("sortedReviews====>", sortedReviews)}
             <>
                 {/* !!sessionUser or Boolean(sessionUser) */}
                 {!(match || ownerOfSpot) && Boolean(sessionUser) && (
@@ -69,25 +79,24 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                 {sortedReviews.map(review => (
                     <div className="review" key={review.id}>
                         {/* <li>{review.User.firstName}</li> */}
-                        <p>firstName: {review.User?.firstName}</p>
-                        <p>spotId: {review.spotId} </p>
+                        <p>{review.User?.firstName}</p>
+                        {<p>{monthYearConvert(review.createdAt)}</p>}
                         {/* below will break my page when I delete p review and try to create p new review */}
                         {/* <p>reviewer: {review.User.firstName}</p> */}
-                        <p>stars: {review.stars} </p>
-                        <p>review: {review.review} </p>
-                        <p>date: {review.createdAt}</p>
 
-                            {sessionUser?.id === review.userId && (
-                                <OpenModalButton
-                                    className="delete_review_button"
-                                    buttonText="Delete"
-                                    modalComponent={<ReviewDelete
-                                        review={review.id}
-                                        spotId={spotId}
-                                    />}
-                                />
+                        <p>{review.review} </p>
 
-                            )}
+                        {sessionUser?.id === review.userId && (
+                            <OpenModalButton
+                                className="delete_review_button"
+                                buttonText="Delete"
+                                modalComponent={<ReviewDelete
+                                    review={review.id}
+                                    spotId={spotId}
+                                />}
+                            />
+
+                        )}
 
                         {/* <li>UserId: {review.userId} , User: {review.User.firstName}  </li> */}
                     </div>
