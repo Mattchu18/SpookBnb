@@ -42,7 +42,7 @@ div.logo_container a {
 
 nav {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
     gap: 6px;
     height: 55px;
@@ -51,9 +51,8 @@ nav {
 }
 
 nav button {
-    width: 55px;
+    width: 65px;
     height: 55px;
-    padding: 0;
     border: none;
     background: none;
     cursor: pointer;
@@ -63,7 +62,16 @@ div.profile-button {
     height: 35px
 }
 
+.menu.button {
+display: flex;
+ justify-content: center;
+ align-items: center;
+}
 
+i.fa-solid.fa-bars:before {
+    color: white;
+    padding-right: 10px;
+}
 
 i.fa-solid.fa-ghost:before {
     height: 65px;
