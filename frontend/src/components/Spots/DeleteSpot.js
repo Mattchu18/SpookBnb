@@ -12,21 +12,29 @@ const DeleteSpot = ({ spot }) => {
 
         await dispatch(deleteSpot(spot))
         dispatch(getSpotCurrentUser())
-        .then(closeModal)
+            .then(closeModal)
     }
 
     return (
-        <>
-            <h2>Confirm Delete</h2>
-            <p>Are you sure you want to remove this spot from the listings?</p>
-            <button onClick={handleDelete}>Yes (Delete Spot)</button>
-            <button onClick={closeModal}>No (Keep Spot)</button>
-            {/* <Link to={`/spots/${spot.id}/edit`}>
+        <div className='modal-content'>
+            <div className="modal_delete_container">
+                <div className="delete_text">
+                    <h2>Confirm Delete</h2>
+                    <p>Are you sure you want to remove this spot from the listings?</p>
+                </div>
+                <div className="delete_buttons">
+
+                    <button className="yes_button" onClick={handleDelete}>Yes (Delete Spot)</button>
+                    <button className="no_button" onClick={closeModal}>No (Keep Spot)</button>
+                </div>
+
+                {/* <Link to={`/spots/${spot.id}/edit`}>
             <button>
                 Update
             </button>
         </Link> */}
-        </>
+            </div>
+        </div>
 
     )
 
