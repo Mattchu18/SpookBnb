@@ -73,9 +73,7 @@ const AllSpotsReviews = ({ spot, spotId }) => {
                         {!sortedReviews.length && (<p>Be the first to post a review!</p>)}
                     </>
                 )}
-                <div>
 
-                </div>
                 {sortedReviews.map(review => (
                     <div className="review" key={review.id}>
                         {/* <li>{review.User.firstName}</li> */}

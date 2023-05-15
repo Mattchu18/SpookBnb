@@ -87,7 +87,7 @@ i.fa-solid.fa-ghost:before {
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-end;
-    background-color: antiquewhite;
+    background-color: white;
     position: absolute;
     right: 0;
     border: 1px solid #2d2d2d;

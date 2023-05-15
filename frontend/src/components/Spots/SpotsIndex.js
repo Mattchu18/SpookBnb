@@ -34,7 +34,7 @@ const SpotsIndex = () => {
                                 {/* <div className="spots-card-pic-container"> */}
                                 <div className="spots-image-container">
 
-                                    <img src={spot.previewImage} />
+                                    <img title={spot.name} src={spot.previewImage} />
                                     {/* </div> */}
                                 </div>
 

@@ -11,6 +11,7 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    padding: 20px 0;
 }
 
 
@@ -102,10 +103,18 @@ div.spots-card-container {
     background-color: darkgrey;
     width: 70px;
     height: 25px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 i .fa-star {
     display: flex;
     gap: 5px;;
+}
+
+.create-new-spot.button {
+    border-radius: 10px;
+    background-color: darkgrey;
+    width: 150px;
+    height: 25px;
+
 }

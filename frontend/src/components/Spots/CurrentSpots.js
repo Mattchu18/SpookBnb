@@ -27,7 +27,7 @@ const CurrentSpots = () => {
                 <div className="spot_title_text" >
                         <h2>Manage Spots</h2>
                         <Link to={"/spots/new"}>
-                            <button>Create a New Spot</button>
+                            <button className="create-new-spot button ">Create a New Spot</button>
                         </Link>
 
                 </div>

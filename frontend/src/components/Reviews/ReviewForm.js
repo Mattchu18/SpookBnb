@@ -44,14 +44,14 @@ const ReviewForm = ({ spotId, reviews, formType }) => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='review-form' onSubmit={handleSubmit}>
             <h2>How was your stay?</h2>
             <textarea
                 type="text"
                 value={review}
                 onChange={(e) => setReview(e.target.value)}
                 placeholder='Leave your review here...' />
-            <div>
+            <div className='star-rating-input'>
                 <StarsRatingInput
                     disabled={false}
                     onChange={onChange}
