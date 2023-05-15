@@ -14,7 +14,23 @@
     padding: 20px 0;
 }
 
+.manage_spot_heading_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    max-width: 1245px;
+    width: 100%;
+}
 
+.manage_spot_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1245px;
+    height: 70px;
+    padding: 10px
+}
 
 div.all-spots-container {
     max-width: 1245px;

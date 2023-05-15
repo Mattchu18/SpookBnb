@@ -23,13 +23,13 @@ const CurrentSpots = () => {
     return (
         <>
             <div className="global-center">
-
-                <div className="spot_title_text" >
+                <div className="manage_spot_heading_container">
+                    <div className="manage_spot_text" >
                         <h2>Manage Spots</h2>
                         <Link to={"/spots/new"}>
                             <button className="create-new-spot button ">Create a New Spot</button>
                         </Link>
-
+                    </div>
                 </div>
                 <div className="all-spots-container">
                     {spots.map((spot) => (
