@@ -1,5 +1,5 @@
 import SpotForm from "./SpotForm";
-import { getOneSpot } from "../../store/spots";
+import { clearSpot, getOneSpot } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -16,16 +16,21 @@ const EditSpotForm = () => {
     useEffect(() => {
         // we are editing one spot so we need to getOneSpot()
         dispatch(getOneSpot(spotId))
+
+        //clean up function that will dispatch clearSpot
+        return () => {
+            dispatch(clearSpot())
+        }
     }, [dispatch, spotId])
 
     if (!spot) return null
 
     return (
         <div className='global-center'>
-                <SpotForm
-                    spot={spot}
-                    formType="Edit Spot"
-                />
+            <SpotForm
+                spot={spot}
+                formType="Edit Spot"
+            />
         </div>
     )
 }

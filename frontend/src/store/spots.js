@@ -6,6 +6,7 @@ const UPSERT_SPOT = 'spots/UPSERT_SPOT';
 const GET_CURR_SPOTS = 'spots/GET_CURR_SPOTS';
 const DEL_SPOT = 'spots/DEL_SPOT';
 const UPSERT_IMAGE = 'spots/UPSERT_IMAGE'
+const CLEAR_SINGLE_SPOT = 'spots/CLEAR_SINGLE_SPOT'
 
 const loadSpots = (spots) => ({
     type: GET_ALL_SPOTS,
@@ -32,9 +33,8 @@ const delSpot = (spotId) => ({
     spotId
 })
 
-const makeImage = (spot) => ({
-    type: UPSERT_IMAGE,
-    spot
+export const clearSpot = () => ({
+    type: CLEAR_SINGLE_SPOT
 })
 
 
@@ -244,6 +244,13 @@ const spotsReducer = (state = initialState, action) => {
                     {}
                 )
             }
+        case CLEAR_SINGLE_SPOT: {
+            const newState = {
+                ...state,
+                singleSpot: null
+            }
+            return newState;
+        }
         //on click delete dispatch(getOneSpot)  so it will refresh the page
         case DEL_SPOT:
             const newState = {

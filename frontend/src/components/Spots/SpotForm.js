@@ -76,6 +76,7 @@ const SpotForm = ({ spot, formType }) => {
 
         setValidationErrors(errors)
 
+        if (!!Object.keys(errors).length) return
 
         console.log("user====>", user)
         //make new inputs for url

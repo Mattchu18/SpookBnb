@@ -2,32 +2,42 @@
     display: none
 }
 
-.header_container{
-    position: relative;
+header {
+    position: sticky;
+    top: 0px;
     background-color: #2d2d2d;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 35px;
+    height: 45px;
     padding: 5px;
 }
 
 img.airbnb_logo {
     position: absolute;
-    left:1%;
-    top: 10%;
-    max-height: 30px;
+    left: 1%;
+    top: 15%;
+    max-height: 38px;
 }
 
-h1 {
+/* h1 {
     position: absolute;
     left: 4.2%;
     top: 10%;
-}
+} */
 
 a {
     text-decoration: none;
-    color: rgb(155, 52, 52)
+    color: white;
+}
+
+div.logo_container a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 255px;
+
 }
 
 nav {
@@ -35,19 +45,40 @@ nav {
     justify-content: center;
     align-items: center;
     gap: 6px;
-    /* flex-direction: row; */
+    height: 55px;
+    width: 200px
+        /* flex-direction: row; */
 }
-.profile_button{
-    border-radius: 15px;
-    height: 30px;
-    width: 30px;
+
+nav button {
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+div.profile-button {
+    height: 35px
+}
+
+
+
+i.fa-solid.fa-ghost:before {
+    height: 65px;
+    width: 65px;
+    color: white;
 }
 
 .profile-dropdown {
     background-color: antiquewhite;
-    position: fixed;
+    color: black;
+    position: relative;
     right: 0%;
-    border: 1px solid red;
+    top: 10%;
+    border: 1px solid #2d2d2d;
+    border-radius: 5px;
     max-width: 200px;
     min-height: 150px
 }

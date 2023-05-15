@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
         <div className='logo_container'>
           <NavLink exact to="/">
             <img src={logo} className="airbnb_logo" alt="airbnb logo" />
-            <h1>AirBnb</h1>
+            <h1>spookbnb</h1>
           </NavLink>
         </div>
 
@@ -29,9 +29,9 @@ function Navigation({ isLoaded }) {
           </a>
         )}
         {isLoaded && (
-          <a>
+          <>
             <ProfileButton user={sessionUser} />
-          </a>
+          </>
         )}
 
       </nav>
