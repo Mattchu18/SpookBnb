@@ -41,72 +41,92 @@ function SignupFormModal() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
+    <div className="signup-form">
+      <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
-        <label>
+        <div className="form-input">
+          <div className="form-name-errors">
           Email
+          {errors.email && <p className="errors">{errors.email}</p>}
+          </div>
           <input
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+            />
+        </div>
+        <div className="form-input">
+          <div className="form-name-errors">
+
           Username
+          {errors.username && <p className="errors">{errors.username}</p>}
+         </div>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+            />
+            </div>
+
+
+            <div className="form-input">
+          <div className="form-name-errors">
           First Name
+          {errors.firstName && <p className="errors">{errors.firstName}</p>}
+          </div>
           <input
             type="text"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
+          </div>
+          <div className="form-input">
+          <div className="form-name-errors">
+
           Last Name
+          {errors.lastName && <p className="errors">{errors.lastName}</p>}
+          </div>
           <input
             type="text"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
-          />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
+            />
+            </div>
+
+            <div className="form-input">
+          <div className="form-name-errors">
           Password
+          {errors.password && <p className="errors">{errors.password}</p>}
+          </div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
+          </div>
+
+          <div className="form-input">
+          <div className="form-name-errors">
           Confirm Password
+          {errors.confirmPassword && <p className="errors">{errors.confirmPassword}</p>}
+          </div>
           <input
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-        </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+          </div>
+          <div className="spot-button">
         <button disabled={!(email && username.length > 3 && firstName && lastName && password.length > 5 && confirmPassword)} type="submit">Sign Up</button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

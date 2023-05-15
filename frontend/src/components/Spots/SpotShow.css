@@ -157,13 +157,16 @@
 
 div#modal-content {
     display: flex;
-    width: 350px;
-    height: 200px;
+    min-width: 350px;
+    min-height: 200px;
     padding: 5px;
     justify-content: space-between;
     border-radius: 10px;
 }
 
+.modal-content {
+    width: 100%;
+}
 
 form.review-form {
     width: 96%;

@@ -27,12 +27,6 @@ const DeleteSpot = ({ spot }) => {
                     <button className="yes_button" onClick={handleDelete}>Yes (Delete Spot)</button>
                     <button className="no_button" onClick={closeModal}>No (Keep Spot)</button>
                 </div>
-
-                {/* <Link to={`/spots/${spot.id}/edit`}>
-            <button>
-                Update
-            </button>
-        </Link> */}
             </div>
         </div>
 
