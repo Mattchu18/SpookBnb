@@ -13,7 +13,7 @@ module.exports = {
       {
         spotId: '1',
         userId: '2',
-        review: 'Best review of all reviews for this spotId of 1!',
+        review: 'This was the most spooktacular place I have been to yet!! I cannot wait to tell me friends how I almost fainted. The staff was amazing and very scary!',
         stars: '5',
       },
       {
