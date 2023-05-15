@@ -87,3 +87,9 @@ background-color: darkgrey;
     width: 100%;
 
 }
+.spot-button button{
+    height: 30px;
+    width: 120px;
+    border-radius: 10px;
+    background-color: darkgrey;
+}
