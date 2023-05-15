@@ -65,7 +65,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL,
     },
     name: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
     description: {
       type: DataTypes.TEXT,
