@@ -22,6 +22,7 @@ SpookBnb is a Airbnb inspired website where you are able to host your own spot f
 * Create a spot that includes its Address, Description, Title, price per night, and photos
 
 ### View a spot
+<img width="1429" alt="pic02" src="https://github.com/Mattchu18/SpookBnb/assets/113220412/4eb50fd1-86af-45dd-871f-6c1fa6b75c22">
 * User can browse splash page that has all spots to view. Choose a spot to see its details.
 
 ### Update a spot
