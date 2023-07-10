@@ -1,12 +1,18 @@
 import { csrfFetch } from "./csrf";
 
 const GET_ALL_REVIEWS = 'reviews/GET_ALL_REVIEWS';
+const GET_USER_REVIEWS = 'reviews/GET_USER_REVIEWS'
 const UPSERT_REVIEW = 'reviews/UPSERT_REVIEW'
 const DEL_REVIEW = 'reviews/DEL_REVIEW'
 const CLEAR_REVIEWS = 'review/CLEAR_REVIEWS'
 
 const loadReviews = (reviews) => ({
     type: GET_ALL_REVIEWS,
+    reviews
+})
+
+const getUserReviews = (reviews) => ({
+    type: GET_USER_REVIEWS,
     reviews
 })
 
@@ -36,8 +42,16 @@ export const getAllReviews = (spotId) => async (dispatch) => {
         dispatch(loadReviews(data.Reviews))
         return data.Reviews
     }
-
 }
+
+export const thunkUserReviews = () => async (dispatch) => {
+    const response = await csrfFetch(`/api/reviews/current`)
+    if (response.ok) {
+        const data = await response.json()
+        dispatch(getUserReviews(data))
+    }
+}
+
 
 export const createReview = (spotId, reviews) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`, { //string interpolate
@@ -84,18 +98,18 @@ const reviewsReducer = (state = initialState, action) => {
             return reviewsState;
         }
 
-        // }
-        // {
-        //     ...state,
-        //     allReviews: action.reviews.reduce(
-        //         (acc, review) => ({ ...acc, [review.id]: review }),
-        //         {}
-        //     ),
-        //     currentUserReviews: action.reviews.reduce(
-        //         (acc, review) => ({ ...acc, [review.id]: review }),
-        //         {}
-        //     )
-        // };
+        case GET_USER_REVIEWS: {
+            const newState = {}
+            const userReviewsObj = action.reviews
+            const userReviews = Object.values(userReviewsObj)
+            userReviews.forEach(review => {
+                newState[review.id] = review
+            })
+            return {
+                ...state,
+                currentUserReviews: newState
+            }
+        }
         case UPSERT_REVIEW: {
             return {
                 ...state,
