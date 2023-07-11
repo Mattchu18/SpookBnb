@@ -12,6 +12,7 @@
     justify-content: space-around;
     align-items: center;
     padding: 20px 0;
+    height: fit-content;
 }
 
 .manage_spot_heading_container{

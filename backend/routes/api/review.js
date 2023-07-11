@@ -67,9 +67,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         delete review.Spot.SpotImages
     })
 
-    return res.json({
-        "Reviews": arr
-    })
+    return res.json(arr)
 })
 
 // Add an Image to a Review based on the Review's id

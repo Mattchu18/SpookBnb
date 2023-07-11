@@ -100,8 +100,9 @@ const reviewsReducer = (state = initialState, action) => {
 
         case GET_USER_REVIEWS: {
             const newState = {}
-            const userReviewsObj = action.reviews
-            const userReviews = Object.values(userReviewsObj)
+            const userReviews = action.reviews
+            console.log("this is userreviesw=====>",userReviews)
+            // const userReviews = Object.values(userReviewsObj)
             userReviews.forEach(review => {
                 newState[review.id] = review
             })

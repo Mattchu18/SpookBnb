@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { thunkUserReviews } from "../../store/reviews";
-
+import "./ManageReviews.css"
 
 const ManageReviews = () => {
     const dispatch = useDispatch()
@@ -12,30 +12,35 @@ const ManageReviews = () => {
         dispatch(thunkUserReviews())
     }, [dispatch])
 
-    console.log("this is userReviews===>", userReviewsObj)
+    // console.log("this is userReviews===>", userReviews)
     return (
         <>
             <div className="global-center">
-                <div className="manage_spot_heading_container">
-                    <div className="manage_spot_text" >
-                        <h2>Manage Reviews</h2>
-                        <div className="user-reviews-container">
-                            {userReviews.map(review => (
+
+                <h2 className="manage_review_heading">Manage Reviews</h2>
+                <div className="all_reviews_container" >
+
+                        {userReviews.map(review => (
+                            <div className="individual-reviews">
+                                <div> <span>spotId is {review.spotId}</span></div>
+
                                 <div>
-                                    <span>spotId is {review.spotId}</span>
+
                                     <span>review is {review.review}</span>
+                                </div>
+
+                                <div>
+
                                     <span>stars is {review.stars}</span>
                                 </div>
-                            ))
+                            </div>
+                        ))
 
-                            }
+                        }
 
-                            Hello
-                        </div>
-                    </div>
                 </div>
-                <div className="all-spots-container">
-                </div>
+
+
             </div>
         </>
     )
