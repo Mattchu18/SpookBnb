@@ -7,12 +7,20 @@
 .all_reviews_container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: fit fit-content;
     width: 1024px;
+    border: 1px solid red;
 }
 
 .individual-reviews {
     display: flex;
     flex-direction: row;
     margin-bottom: 16px;
+    border: 1px solid blue;
+    min-height: 200px;
+}
+
+.review-spot-image {
+    display: flex;
+    height: 180px;
 }
