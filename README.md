@@ -1,10 +1,10 @@
-# SpookBnb
+# Spookybnb
 
 ## Description
-SpookBnb is a Airbnb inspired website where you are able to host your own spot for users to book. As a user you may create your own spot, review another spot, and book a spot (in progress).
+Spookybnb is a Airbnb inspired website where you are able to host your own spot for users to book. As a user you may create your own spot, review another spot, and book a spot (in progress).
 
-## Check it out here! 
-[Spookbnb](https://airbnb-clone-ff80.onrender.com)
+## Check it out here!
+[Spookybnb](https://airbnb-clone-ff80.onrender.com)
 
 ## Technologies/Frameworks Used
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
@@ -37,10 +37,10 @@ SpookBnb is a Airbnb inspired website where you are able to host your own spot f
 
 ### View a Review
 * Checkout all the reviews for a restaurant
-  
+
 ### Update a review
 * Update your own review for a restaurant
-  
+
 ### Delete a review
 * Delete your own review for a restaurant
 

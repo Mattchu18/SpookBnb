@@ -15,7 +15,7 @@ function Navigation({ isLoaded }) {
         <div className='logo_container'>
           <NavLink exact to="/">
             <img src={logo} className="airbnb_logo" alt="airbnb logo" />
-            <h1>spookbnb</h1>
+            <h1>spookybnb</h1>
           </NavLink>
         </div>
 
