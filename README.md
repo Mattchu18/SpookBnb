@@ -17,12 +17,13 @@ Spookybnb is a Airbnb inspired website where you are able to host your own spot 
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
+<img width="600" alt="pic02" src="https://github.com/Mattchu18/Spookybnb/assets/113220412/384dd083-ad53-44a0-992f-9ec4f8ae2f07">
+
 ## MVP Core Features
 ### Create a spot
 * Create a spot that includes its Address, Description, Title, price per night, and photos
 
 ### View a spot
-<img width="600" alt="pic02" src="https://github.com/Mattchu18/Spookybnb/assets/113220412/22f99d6d-c7b9-41dd-972c-60edd3130023">
 * User can browse splash page that has all spots to view. Choose a spot to see its details.
 
 ### Update a spot
